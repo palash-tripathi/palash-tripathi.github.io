@@ -197,6 +197,119 @@
         font-size: 32px;
       }
     }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(0, 0, 0, .55);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-card {
+      width: min(920px, 100%);
+      max-height: min(82vh, 760px);
+      overflow: auto;
+      border-radius: 18px;
+      background: rgba(18, 18, 26, .86);
+      border: 1px solid rgba(255, 255, 255, .12);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, .55);
+    }
+
+    .modal-top {
+      position: sticky;
+      top: 0;
+      background: rgba(18, 18, 26, .92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      padding: 16px 16px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .modal-sub {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .modal-close {
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(255, 255, 255, .04);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: .18s;
+      line-height: 1;
+    }
+
+    .modal-close:hover {
+      transform: translateY(-1px);
+      border-color: rgba(124, 58, 237, .55);
+      box-shadow: 0 10px 30px rgba(124, 58, 237, .18);
+    }
+
+    .modal-body {
+      padding: 16px;
+    }
+
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 10px;
+      margin: 10px 0 16px;
+    }
+
+    .kpi .pill {
+      grid-column: span 4;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .04);
+      padding: 10px 12px;
+    }
+
+    .kpi .pill b {
+      display: block;
+      font-size: 14px;
+    }
+
+    .kpi .pill span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      .kpi .pill {
+        grid-column: span 12;
+      }
+    }
+
+    /* Make cards feel clickable */
+    .card[data-project] {
+      cursor: pointer;
+    }
+
+    .card[data-project]:focus {
+      outline: 2px solid rgba(124, 58, 237, .55);
+      outline-offset: 2px;
+    }
   </style>
 </head>
 
@@ -231,7 +344,7 @@
 
     <div class="grid">
 
-      <div class="card">
+      <div class="card" data-project="tenant">
         <h3>Multi-Tenant Analytics Platform</h3>
         <small>PostgreSQL • AWS • Python • SQL</small>
         <p style="margin-top:10px">
@@ -240,7 +353,7 @@
         </p>
       </div>
 
-      <div class="card">
+      <div class="card" data-project="dq">
         <h3>Cloud ETL & Data Quality Framework</h3>
         <small>AWS Glue • Lambda • DynamoDB</small>
         <p style="margin-top:10px">
@@ -249,7 +362,7 @@
         </p>
       </div>
 
-      <div class="card">
+      <div class="card" data-project="forecast">
         <h3>Forecasting & Supply Chain Analytics</h3>
         <small>Python • SQL • Power BI</small>
         <p style="margin-top:10px">
@@ -258,7 +371,7 @@
         </p>
       </div>
 
-      <div class="card">
+      <div class="card" data-project="dashboards">
         <h3>Embedded KPI Dashboards</h3>
         <small>Power BI • Apache Superset • APIs</small>
         <p style="margin-top:10px">
@@ -267,6 +380,19 @@
         </p>
       </div>
 
+    </div>
+    <div class="modal" id="modal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-top">
+          <div>
+            <h3 class="modal-title" id="modalTitle">Title</h3>
+            <div class="modal-sub" id="modalSub">Subtitle</div>
+          </div>
+          <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+        </div>
+
+        <div class="modal-body" id="modalBody"></div>
+      </div>
     </div>
 
     <div class="footer">
@@ -289,6 +415,157 @@
     }, { passive: true });
   </script>
   
+  <script>
+    const projects = {
+      tenant: {
+        title: "Multi-Tenant Analytics Platform",
+        sub: "PostgreSQL • AWS • Python • SQL",
+        kpis: [
+          { label: "Impact", value: "60–70% faster onboarding" },
+          { label: "Focus", value: "Secure tenant isolation" },
+          { label: "Outcome", value: "Scalable analytics foundation" }
+        ],
+        body: `
+        <p style="color:var(--muted);margin:0 0 12px;line-height:1.6">
+          Built a multi-tenant analytics platform with automated schema provisioning to onboard new clients quickly
+          while maintaining strict data isolation.
+        </p>
+        <h4 style="margin:16px 0 8px">What I did</h4>
+        <ul style="margin:0;color:var(--muted);line-height:1.7">
+          <li>Designed tenant-aware schemas and automated provisioning workflows.</li>
+          <li>Implemented integrity checks to ensure isolation and reliability across tenants.</li>
+          <li>Optimized core queries and data models for analytics workloads.</li>
+        </ul>
+        <h4 style="margin:16px 0 8px">Tech</h4>
+        <p style="margin:0;color:var(--muted)">PostgreSQL, SQL, Python, AWS (S3/Glue/Lambda), Git</p>
+      `
+      },
+
+      dq: {
+        title: "Cloud ETL & Data Quality Framework",
+        sub: "AWS Glue • Lambda • DynamoDB • PostgreSQL",
+        kpis: [
+          { label: "Goal", value: "Reliable, automated pipelines" },
+          { label: "Method", value: "Validation + integrity checks" },
+          { label: "Result", value: "Higher reporting confidence" }
+        ],
+        body: `
+        <p style="color:var(--muted);margin:0 0 12px;line-height:1.6">
+          Implemented ETL pipelines with built-in validation to reduce bad data downstream and improve trust in dashboards.
+        </p>
+        <h4 style="margin:16px 0 8px">What I did</h4>
+        <ul style="margin:0;color:var(--muted);line-height:1.7">
+          <li>Automated ingestion and transformation using AWS Glue and serverless patterns.</li>
+          <li>Added data quality checks using DynamoDB lookups and PostgreSQL integrity rules.</li>
+          <li>Reduced manual reconciliation by standardizing validation steps.</li>
+        </ul>
+        <h4 style="margin:16px 0 8px">Tech</h4>
+        <p style="margin:0;color:var(--muted)">AWS Glue, Lambda, DynamoDB, S3, PostgreSQL, Python</p>
+      `
+      },
+
+      forecast: {
+        title: "Forecasting & Supply Chain Analytics",
+        sub: "Python • SQL • Power BI",
+        kpis: [
+          { label: "Outcome", value: "Better planning accuracy" },
+          { label: "Use case", value: "Stockouts & overstock reduction" },
+          { label: "Delivery", value: "Operational visibility" }
+        ],
+        body: `
+        <p style="color:var(--muted);margin:0 0 12px;line-height:1.6">
+          Developed forecasting models to improve supply chain planning and support better inventory decisions.
+        </p>
+        <h4 style="margin:16px 0 8px">What I did</h4>
+        <ul style="margin:0;color:var(--muted);line-height:1.7">
+          <li>Built model-ready datasets using SQL transformations and feature preparation.</li>
+          <li>Implemented forecasting logic and evaluated performance against historical trends.</li>
+          <li>Integrated results into decision-ready reporting for stakeholders.</li>
+        </ul>
+        <h4 style="margin:16px 0 8px">Tech</h4>
+        <p style="margin:0;color:var(--muted)">Python, pandas, SQL, Power BI</p>
+      `
+      },
+
+      dashboards: {
+        title: "Embedded KPI Dashboards",
+        sub: "Power BI • Apache Superset • APIs",
+        kpis: [
+          { label: "Impact", value: "40% less manual reporting" },
+          { label: "Approach", value: "Embedded real-time KPIs" },
+          { label: "Value", value: "Lower dashboard cost" }
+        ],
+        body: `
+        <p style="color:var(--muted);margin:0 0 12px;line-height:1.6">
+          Delivered embedded dashboards with semantic models and API-integrated metrics to enable real-time decision-making.
+        </p>
+        <h4 style="margin:16px 0 8px">What I did</h4>
+        <ul style="margin:0;color:var(--muted);line-height:1.7">
+          <li>Built KPI dashboards and semantic models to standardize metric definitions.</li>
+          <li>Integrated internal APIs and reduced embedding costs via an open-source approach.</li>
+          <li>Improved stakeholder self-serve reporting and reduced recurring manual effort.</li>
+        </ul>
+        <h4 style="margin:16px 0 8px">Tech</h4>
+        <p style="margin:0;color:var(--muted)">Power BI, Apache Superset, REST APIs, SQL</p>
+      `
+      }
+    };
+
+    const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalSub = document.getElementById("modalSub");
+    const modalBody = document.getElementById("modalBody");
+    const modalClose = document.getElementById("modalClose");
+
+    function openModal(key) {
+      const p = projects[key];
+      if (!p) return;
+
+      modalTitle.textContent = p.title;
+      modalSub.textContent = p.sub;
+
+      const kpiHtml = `
+      <div class="kpi">
+        ${p.kpis.map(k => `
+          <div class="pill">
+            <b>${k.label}</b>
+            <span>${k.value}</span>
+          </div>
+        `).join("")}
+      </div>
+    `;
+
+      modalBody.innerHTML = kpiHtml + p.body;
+
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      modalClose.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".card[data-project]").forEach(card => {
+      card.setAttribute("tabindex", "0");
+      card.addEventListener("click", () => openModal(card.dataset.project));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") openModal(card.dataset.project);
+      });
+    });
+
+    modalClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+    });
+  </script>
+
 </body>
 
 </html>
