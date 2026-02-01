@@ -9,14 +9,13 @@
     :root{
       --bg:#07080c;
       --panel: rgba(18, 18, 26, .68);
-      --panel2: rgba(18, 18, 26, .46);
       --border: rgba(255,255,255,.10);
       --text: #ECECF7;
       --muted: rgba(236,236,247,.70);
       --muted2: rgba(236,236,247,.55);
       --accent: #7c3aed;  /* purple */
       --accent2:#3b82f6;  /* blue */
-      --shadow: 0 20px 80px rgba(0,0,0,.55);
+      --shadow: 0 20px 90px rgba(0,0,0,.55);
       --radius: 18px;
       --radius2: 22px;
     }
@@ -132,6 +131,82 @@
       color: var(--text);
       background: rgba(124,58,237,.10);
       border-color: rgba(124,58,237,.46);
+    }
+
+    /* Sticky “Now” bar */
+    .nowbar{
+      position: sticky;
+      top: 52px; /* sits under nav */
+      z-index: 55;
+      background: rgba(7,8,12,.50);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nowbar-inner{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 14px;
+    }
+    .now-left{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .pulse{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background: rgba(124,58,237,.95);
+      box-shadow: 0 0 0 6px rgba(124,58,237,.12);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); opacity: .9; }
+      50%{ transform: scale(1.15); opacity: 1; }
+    }
+    .now-title{
+      font-size: 13px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: rgba(236,236,247,.86);
+      white-space: nowrap;
+    }
+    .now-text{
+      font-size: 13px;
+      color: rgba(236,236,247,.62);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 70ch;
+    }
+    .now-right{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      white-space: nowrap;
+    }
+    .now-link{
+      font-size: 13px;
+      color: rgba(236,236,247,.70);
+      text-decoration:none;
+      padding: 7px 10px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      transition: .16s ease;
+    }
+    .now-link:hover{
+      color: rgba(236,236,247,.92);
+      background: rgba(255,255,255,.04);
+      border-color: rgba(124,58,237,.26);
+    }
+    @media (max-width: 780px){
+      .now-right{ display:none; }
+      .now-text{ max-width: 42ch; }
     }
 
     /* Layout */
@@ -287,15 +362,16 @@
     }
     .photo img{
       width: 100%;
-      height: 360px;
+      height: 420px;              /* bigger rectangle */
       object-fit: cover;
+      object-position: 50% 12%;   /* FIX: anchor toward top so head doesn't crop */
       border-radius: 16px;
       display:block;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.02);
     }
     @media (max-width: 980px){
-      .photo img{ height: 320px; }
+      .photo img{ height: 360px; }
     }
 
     .stats{
@@ -595,7 +671,7 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Scroll “slide-up” reveal (what you asked for) */
+    /* Scroll “slide-up” reveal */
     .reveal{
       opacity: 0;
       transform: translateY(18px);
@@ -658,6 +734,20 @@
     </div>
   </nav>
 
+  <div class="nowbar" id="nowbar" aria-label="Now">
+    <div class="nowbar-inner">
+      <div class="now-left">
+        <span class="pulse" aria-hidden="true"></span>
+        <span class="now-title">Now</span>
+        <span class="now-text">Building reliable analytics platforms • Open to Data Engineering roles</span>
+      </div>
+      <div class="now-right">
+        <a class="now-link" href="#projects">Projects</a>
+        <a class="now-link" href="assets/PalashT_Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+      </div>
+    </div>
+  </div>
+
   <main class="wrap" id="home">
     <!-- HOME / HERO -->
     <section class="hero reveal">
@@ -665,7 +755,8 @@
         <div class="kicker"><span class="dot" aria-hidden="true"></span> Data Engineer • AWS • Analytics Platforms</div>
         <h1>Build data systems that ship.</h1>
         <div class="subtitle">
-          I design cloud ETL pipelines, multi-tenant data platforms, and BI experiences that convert messy operational data into decision-ready insights—reliably, at scale.
+          I design cloud ETL pipelines, multi-tenant data platforms, and BI experiences that convert operational data into
+          decision-ready insights—reliably, at scale.
         </div>
 
         <div class="cta-row">
@@ -738,7 +829,7 @@
         <div class="stats reveal">
           <div class="stat"><b>Client onboarding</b><span>60–70% faster</span></div>
           <div class="stat"><b>Manual reporting</b><span>~40% reduced</span></div>
-          <div class="stat"><b>Forecasting impact</b><span>inventory accuracy improved</span></div>
+          <div class="stat"><b>Model impact</b><span>+33% CTR uplift</span></div>
         </div>
       </div>
     </section>
@@ -747,35 +838,34 @@
     <section class="section reveal" id="about">
       <div class="section-head">
         <h2>About</h2>
-        <div class="hint">How I work, what I optimize for.</div>
+        <div class="hint">How I work and what I optimize for.</div>
       </div>
 
       <div class="panel about">
         <div>
           <p>
-            I’m a Data Engineer focused on building systems that teams actually trust—pipelines that are observable,
-            data models that are consistent, and dashboards that reflect the same definitions across the business.
-            I’ve worked across analytics platforms, ETL frameworks, and BI experiences—often at the intersection of
-            engineering and operations.
+            I’m a Data Engineer focused on building systems that teams trust: pipelines that are observable,
+            data models that are consistent, and dashboards that reflect the same metric definitions across the business.
+            I enjoy working at the intersection of data engineering and analytics—shipping tools people use daily.
           </p>
           <p style="margin-top:12px">
-            I care about fundamentals: clean data contracts, validation, reproducibility, and performance—then packaging
-            it into a user experience (APIs, semantic models, dashboards) that makes decisions easier.
+            I care about fundamentals (clean data contracts, validation, reproducibility, performance)
+            and packaging the results into a great consumption experience (APIs, semantic models, dashboards).
           </p>
         </div>
 
         <div class="about-cards">
           <div class="mini">
             <h3>What I build</h3>
-            <div class="sub">ETL frameworks, multi-tenant data platforms, BI semantic layers, operational analytics.</div>
+            <div class="sub">ETL frameworks, multi-tenant analytics platforms, semantic layers, KPI dashboards.</div>
           </div>
           <div class="mini">
             <h3>What I optimize</h3>
-            <div class="sub">Reliability, data quality, cost/performance, stakeholder clarity, and speed to insight.</div>
+            <div class="sub">Reliability, data quality, cost/performance, and speed to insight.</div>
           </div>
           <div class="mini">
             <h3>How I deliver</h3>
-            <div class="sub">Iterative launches, tight feedback loops, clean documentation, and measurable outcomes.</div>
+            <div class="sub">Iterative launches, tight feedback loops, crisp documentation, measurable outcomes.</div>
           </div>
         </div>
       </div>
@@ -991,10 +1081,9 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Scroll reveal (slide-up with stagger)
+    // Scroll reveal (slide-up) with tasteful stagger
     const revealEls = Array.from(document.querySelectorAll(".reveal"));
     revealEls.forEach((el, i) => {
-      // small stagger that feels premium
       el.style.transitionDelay = (Math.min(i, 10) * 0.03) + "s";
     });
 
@@ -1016,13 +1105,19 @@
       .filter(a => a.getAttribute("href")?.startsWith("#"));
 
     function setActive(){
-      const y = window.scrollY + 160;
+      const y = window.scrollY + 180;
       let current = "about";
       for (const s of sections) if (s && s.offsetTop <= y) current = s.id;
       navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${current}`));
     }
     window.addEventListener("scroll", setActive, { passive:true });
     setActive();
+
+    // Now bar micro-behavior (very subtle)
+    const nb = document.getElementById("nowbar");
+    window.addEventListener("scroll", () => {
+      nb.style.opacity = window.scrollY > 140 ? "0.94" : "1";
+    }, { passive: true });
 
     // Copy email + toast
     const emailValue = "palash.trip@gmail.com";
