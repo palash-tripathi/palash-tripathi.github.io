@@ -140,7 +140,10 @@
       margin-top: 18px;
     }
 
-    a.btn {
+    .btn {
+      appearance: none;
+      -webkit-appearance: none;
+      font: inherit;
       padding: 10px 14px;
       border-radius: 12px;
       text-decoration: none;
@@ -148,7 +151,9 @@
       border: 1px solid rgba(255, 255, 255, .14);
       background: rgba(255, 255, 255, .04);
       transition: .18s;
+      cursor: pointer;
     }
+
 
     a.btn:hover {
       transform: translateY(-2px);
@@ -390,94 +395,94 @@
           <button class="btn email-btn" id="copyEmail" type="button" aria-label="Copy email">
             🔗 Email
           </button>
-          
-      </div>
-    </div>
 
-    <div class="grid">
-
-      <div class="card" data-project="tenant">
-        <h3>Multi-Tenant Analytics Platform</h3>
-        <small>PostgreSQL • AWS • Python • SQL</small>
-        <p style="margin-top:10px">
-          Designed a secure, scalable analytics platform with automated tenant
-          provisioning, reducing onboarding time by 60–70%.
-        </p>
+        </div>
       </div>
 
-      <div class="card" data-project="dq">
-        <h3>Cloud ETL & Data Quality Framework</h3>
-        <small>AWS Glue • Lambda • DynamoDB</small>
-        <p style="margin-top:10px">
-          Built automated ETL pipelines with embedded data validation to improve
-          reliability across reporting systems.
-        </p>
-      </div>
+      <div class="grid">
 
-      <div class="card" data-project="forecast">
-        <h3>Forecasting & Supply Chain Analytics</h3>
-        <small>Python • SQL • Power BI</small>
-        <p style="margin-top:10px">
-          Developed forecasting models that improved planning accuracy and
-          reduced stockouts and overstock.
-        </p>
-      </div>
-
-      <div class="card" data-project="dashboards">
-        <h3>Embedded KPI Dashboards</h3>
-        <small>Power BI • Apache Superset • APIs</small>
-        <p style="margin-top:10px">
-          Delivered real-time dashboards embedded into applications, cutting
-          manual reporting effort by 40%.
-        </p>
-      </div>
-
-    </div>
-    <div class="modal" id="modal" aria-hidden="true">
-      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal-top">
-          <div>
-            <h3 class="modal-title" id="modalTitle">Title</h3>
-            <div class="modal-sub" id="modalSub">Subtitle</div>
-          </div>
-          <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+        <div class="card" data-project="tenant">
+          <h3>Multi-Tenant Analytics Platform</h3>
+          <small>PostgreSQL • AWS • Python • SQL</small>
+          <p style="margin-top:10px">
+            Designed a secure, scalable analytics platform with automated tenant
+            provisioning, reducing onboarding time by 60–70%.
+          </p>
         </div>
 
-        <div class="modal-body" id="modalBody"></div>
+        <div class="card" data-project="dq">
+          <h3>Cloud ETL & Data Quality Framework</h3>
+          <small>AWS Glue • Lambda • DynamoDB</small>
+          <p style="margin-top:10px">
+            Built automated ETL pipelines with embedded data validation to improve
+            reliability across reporting systems.
+          </p>
+        </div>
+
+        <div class="card" data-project="forecast">
+          <h3>Forecasting & Supply Chain Analytics</h3>
+          <small>Python • SQL • Power BI</small>
+          <p style="margin-top:10px">
+            Developed forecasting models that improved planning accuracy and
+            reduced stockouts and overstock.
+          </p>
+        </div>
+
+        <div class="card" data-project="dashboards">
+          <h3>Embedded KPI Dashboards</h3>
+          <small>Power BI • Apache Superset • APIs</small>
+          <p style="margin-top:10px">
+            Delivered real-time dashboards embedded into applications, cutting
+            manual reporting effort by 40%.
+          </p>
+        </div>
+
       </div>
+      <div class="modal" id="modal" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+          <div class="modal-top">
+            <div>
+              <h3 class="modal-title" id="modalTitle">Title</h3>
+              <div class="modal-sub" id="modalSub">Subtitle</div>
+            </div>
+            <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+          </div>
+
+          <div class="modal-body" id="modalBody"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        © <span id="year"></span> Palash Tripathi • Built with GitHub Pages
+      </div>
+
     </div>
 
-    <div class="footer">
-      © <span id="year"></span> Palash Tripathi • Built with GitHub Pages
-    </div>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <script>
+      // Aurora spotlight follows cursor (desktop)
+      const root = document.documentElement;
+      window.addEventListener("mousemove", (e) => {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        root.style.setProperty("--mx", x + "%");
+        root.style.setProperty("--my", y + "%");
+      }, { passive: true });
+    </script>
 
-  </div>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-  <script>
-    // Aurora spotlight follows cursor (desktop)
-    const root = document.documentElement;
-    window.addEventListener("mousemove", (e) => {
-      const x = (e.clientX / window.innerWidth) * 100;
-      const y = (e.clientY / window.innerHeight) * 100;
-      root.style.setProperty("--mx", x + "%");
-      root.style.setProperty("--my", y + "%");
-    }, { passive: true });
-  </script>
-
-  <script>
-    const projects = {
-      tenant: {
-        title: "Multi-Tenant Analytics Platform",
-        sub: "PostgreSQL • AWS • Python • SQL",
-        kpis: [
-          { label: "Impact", value: "60–70% faster onboarding" },
-          { label: "Focus", value: "Secure tenant isolation" },
-          { label: "Outcome", value: "Scalable analytics foundation" }
-        ],
-        body: `
+    <script>
+      const projects = {
+        tenant: {
+          title: "Multi-Tenant Analytics Platform",
+          sub: "PostgreSQL • AWS • Python • SQL",
+          kpis: [
+            { label: "Impact", value: "60–70% faster onboarding" },
+            { label: "Focus", value: "Secure tenant isolation" },
+            { label: "Outcome", value: "Scalable analytics foundation" }
+          ],
+          body: `
         <p style="color:var(--muted);margin:0 0 12px;line-height:1.6">
           Built a multi-tenant analytics platform with automated schema provisioning to onboard new clients quickly
           while maintaining strict data isolation.
@@ -491,17 +496,17 @@
         <h4 style="margin:16px 0 8px">Tech</h4>
         <p style="margin:0;color:var(--muted)">PostgreSQL, SQL, Python, AWS (S3/Glue/Lambda), Git</p>
       `
-      },
+        },
 
-      dq: {
-        title: "Cloud ETL & Data Quality Framework",
-        sub: "AWS Glue • Lambda • DynamoDB • PostgreSQL",
-        kpis: [
-          { label: "Goal", value: "Reliable, automated pipelines" },
-          { label: "Method", value: "Validation + integrity checks" },
-          { label: "Result", value: "Higher reporting confidence" }
-        ],
-        body: `
+        dq: {
+          title: "Cloud ETL & Data Quality Framework",
+          sub: "AWS Glue • Lambda • DynamoDB • PostgreSQL",
+          kpis: [
+            { label: "Goal", value: "Reliable, automated pipelines" },
+            { label: "Method", value: "Validation + integrity checks" },
+            { label: "Result", value: "Higher reporting confidence" }
+          ],
+          body: `
         <p style="color:var(--muted);margin:0 0 12px;line-height:1.6">
           Implemented ETL pipelines with built-in validation to reduce bad data downstream and improve trust in dashboards.
         </p>
@@ -514,17 +519,17 @@
         <h4 style="margin:16px 0 8px">Tech</h4>
         <p style="margin:0;color:var(--muted)">AWS Glue, Lambda, DynamoDB, S3, PostgreSQL, Python</p>
       `
-      },
+        },
 
-      forecast: {
-        title: "Forecasting & Supply Chain Analytics",
-        sub: "Python • SQL • Power BI",
-        kpis: [
-          { label: "Outcome", value: "Better planning accuracy" },
-          { label: "Use case", value: "Stockouts & overstock reduction" },
-          { label: "Delivery", value: "Operational visibility" }
-        ],
-        body: `
+        forecast: {
+          title: "Forecasting & Supply Chain Analytics",
+          sub: "Python • SQL • Power BI",
+          kpis: [
+            { label: "Outcome", value: "Better planning accuracy" },
+            { label: "Use case", value: "Stockouts & overstock reduction" },
+            { label: "Delivery", value: "Operational visibility" }
+          ],
+          body: `
         <p style="color:var(--muted);margin:0 0 12px;line-height:1.6">
           Developed forecasting models to improve supply chain planning and support better inventory decisions.
         </p>
@@ -537,17 +542,17 @@
         <h4 style="margin:16px 0 8px">Tech</h4>
         <p style="margin:0;color:var(--muted)">Python, pandas, SQL, Power BI</p>
       `
-      },
+        },
 
-      dashboards: {
-        title: "Embedded KPI Dashboards",
-        sub: "Power BI • Apache Superset • APIs",
-        kpis: [
-          { label: "Impact", value: "40% less manual reporting" },
-          { label: "Approach", value: "Embedded real-time KPIs" },
-          { label: "Value", value: "Lower dashboard cost" }
-        ],
-        body: `
+        dashboards: {
+          title: "Embedded KPI Dashboards",
+          sub: "Power BI • Apache Superset • APIs",
+          kpis: [
+            { label: "Impact", value: "40% less manual reporting" },
+            { label: "Approach", value: "Embedded real-time KPIs" },
+            { label: "Value", value: "Lower dashboard cost" }
+          ],
+          body: `
         <p style="color:var(--muted);margin:0 0 12px;line-height:1.6">
           Delivered embedded dashboards with semantic models and API-integrated metrics to enable real-time decision-making.
         </p>
@@ -560,23 +565,23 @@
         <h4 style="margin:16px 0 8px">Tech</h4>
         <p style="margin:0;color:var(--muted)">Power BI, Apache Superset, REST APIs, SQL</p>
       `
-      }
-    };
+        }
+      };
 
-    const modal = document.getElementById("modal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalSub = document.getElementById("modalSub");
-    const modalBody = document.getElementById("modalBody");
-    const modalClose = document.getElementById("modalClose");
+      const modal = document.getElementById("modal");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalSub = document.getElementById("modalSub");
+      const modalBody = document.getElementById("modalBody");
+      const modalClose = document.getElementById("modalClose");
 
-    function openModal(key) {
-      const p = projects[key];
-      if (!p) return;
+      function openModal(key) {
+        const p = projects[key];
+        if (!p) return;
 
-      modalTitle.textContent = p.title;
-      modalSub.textContent = p.sub;
+        modalTitle.textContent = p.title;
+        modalSub.textContent = p.sub;
 
-      const kpiHtml = `
+        const kpiHtml = `
       <div class="kpi">
         ${p.kpis.map(k => `
           <div class="pill">
@@ -587,93 +592,93 @@
       </div>
     `;
 
-      modalBody.innerHTML = kpiHtml + p.body;
+        modalBody.innerHTML = kpiHtml + p.body;
 
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      modalClose.focus();
-    }
-
-    function closeModal() {
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-
-    document.querySelectorAll(".card[data-project]").forEach(card => {
-      card.setAttribute("tabindex", "0");
-      card.addEventListener("click", () => openModal(card.dataset.project));
-      card.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") openModal(card.dataset.project);
-      });
-    });
-
-    modalClose.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
-    });
-  </script>
-
-  <script>
-    // Scroll-reveal
-    const revealEls = document.querySelectorAll(".card, section, .profile");
-    revealEls.forEach(el => el.classList.add("reveal"));
-
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    revealEls.forEach(el => io.observe(el));
-  </script>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script>
-    // Copy email + toast
-    const emailValue = "palash.trip@gmail.com";
-    const copyBtn = document.getElementById("copyEmail");
-    const toast = document.getElementById("toast");
-    let toastTimer;
-
-    function showToast(msg) {
-      toast.textContent = msg;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 1400);
-    }
-
-    async function copyToClipboard(text) {
-      try {
-        await navigator.clipboard.writeText(text);
-        return true;
-      } catch {
-        // fallback
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.position = "fixed";
-        ta.style.opacity = "0";
-        document.body.appendChild(ta);
-        ta.select();
-        const ok = document.execCommand("copy");
-        document.body.removeChild(ta);
-        return ok;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        modalClose.focus();
       }
-    }
 
-    if (copyBtn) {
-      copyBtn.addEventListener("click", async () => {
-        const ok = await copyToClipboard(emailValue);
-        showToast(ok ? "Email copied ✔" : "Copy failed — try again");
+      function closeModal() {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll(".card[data-project]").forEach(card => {
+        card.setAttribute("tabindex", "0");
+        card.addEventListener("click", () => openModal(card.dataset.project));
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") openModal(card.dataset.project);
+        });
       });
-    }
-  </script>
+
+      modalClose.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+      });
+    </script>
+
+    <script>
+      // Scroll-reveal
+      const revealEls = document.querySelectorAll(".card, section, .profile");
+      revealEls.forEach(el => el.classList.add("reveal"));
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealEls.forEach(el => io.observe(el));
+    </script>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>
+      // Copy email + toast
+      const emailValue = "palash.trip@gmail.com";
+      const copyBtn = document.getElementById("copyEmail");
+      const toast = document.getElementById("toast");
+      let toastTimer;
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 1400);
+      }
+
+      async function copyToClipboard(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch {
+          // fallback
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          const ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          return ok;
+        }
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", async () => {
+          const ok = await copyToClipboard(emailValue);
+          showToast(ok ? "Email copied ✔" : "Copy failed — try again");
+        });
+      }
+    </script>
 
 </body>
 
