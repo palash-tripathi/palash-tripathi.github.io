@@ -7,19 +7,22 @@
 
   <style>
     :root{
-      --bg:#0b0c10;
-      --panel:rgba(18,18,26,.72);
-      --border:rgba(255,255,255,.10);
-      --text:#eaeaf2;
-      --muted:#a6a6c3;
-      --accent:#7c3aed; /* purple */
-      --accent2:#3b82f6; /* blue */
-      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --bg:#07080c;
+      --panel: rgba(18, 18, 26, .68);
+      --panel2: rgba(18, 18, 26, .46);
+      --border: rgba(255,255,255,.10);
+      --text: #ECECF7;
+      --muted: rgba(236,236,247,.70);
+      --muted2: rgba(236,236,247,.55);
+      --accent: #7c3aed;  /* purple */
+      --accent2:#3b82f6;  /* blue */
+      --shadow: 0 20px 80px rgba(0,0,0,.55);
       --radius: 18px;
+      --radius2: 22px;
     }
 
-    *{ box-sizing:border-box }
-    html{ scroll-behavior:smooth }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
@@ -28,82 +31,91 @@
       overflow-x:hidden;
     }
 
-    /* Professional aurora: subtle + slow (not “party”) */
+    /* Subtle “Apple” aurora */
     body::before, body::after{
       content:"";
-      position:fixed;
-      inset:-25vh -25vw;
-      z-index:-3;
+      position: fixed;
+      inset: -25vh -25vw;
+      z-index: -4;
       background:
-        radial-gradient(1000px 520px at 12% 8%, rgba(124,58,237,.28), transparent 62%),
-        radial-gradient(900px 560px at 88% 10%, rgba(59,130,246,.18), transparent 58%),
-        radial-gradient(820px 540px at 55% 85%, rgba(124,58,237,.12), transparent 62%);
-      filter: blur(22px);
+        radial-gradient(1100px 560px at 14% 8%, rgba(124,58,237,.22), transparent 62%),
+        radial-gradient(980px 600px at 88% 10%, rgba(59,130,246,.14), transparent 58%),
+        radial-gradient(900px 560px at 55% 86%, rgba(124,58,237,.10), transparent 64%);
+      filter: blur(26px);
       transform: translateZ(0);
-      animation: aurora 22s ease-in-out infinite alternate;
-      opacity:.95;
+      animation: aurora 28s ease-in-out infinite alternate;
+      opacity: .92;
+      pointer-events:none;
     }
     body::after{
-      z-index:-4;
-      filter: blur(34px);
-      animation-duration: 30s;
-      opacity:.55;
+      opacity: .55;
+      filter: blur(38px);
+      animation-duration: 36s;
+      z-index: -5;
     }
     @keyframes aurora{
-      from{ transform: translate(-1.2%,-0.8%) scale(1.02); }
-      to  { transform: translate( 1.2%, 0.8%) scale(1.04); }
+      from{ transform: translate(-1.0%,-0.6%) scale(1.02); }
+      to  { transform: translate( 1.0%, 0.6%) scale(1.05); }
     }
 
-    /* Spotlight follows cursor: extremely subtle */
+    /* Mouse spotlight (very subtle) */
     .spotlight{
-      position:fixed; inset:0; z-index:-2;
+      position: fixed;
+      inset: 0;
+      z-index: -3;
       pointer-events:none;
       background: radial-gradient(
-        560px 560px at var(--mx,50%) var(--my,15%),
-        rgba(124,58,237,.10),
-        transparent 62%
+        560px 560px at var(--mx, 55%) var(--my, 20%),
+        rgba(124,58,237,.09),
+        transparent 64%
       );
-      opacity:.9;
+      opacity:.95;
     }
 
     /* Top nav */
     .nav{
-      position:sticky; top:0; z-index:50;
-      background: rgba(11,12,16,.62);
-      backdrop-filter: blur(12px);
+      position: sticky;
+      top:0;
+      z-index: 60;
+      background: rgba(7,8,12,.62);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,.08);
     }
     .nav-inner{
-      max-width: 1040px;
+      max-width: 1120px;
       margin: 0 auto;
       padding: 12px 20px;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
+      gap: 14px;
     }
     .brand{
-      display:flex; align-items:center; gap:10px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      color: var(--text);
       text-decoration:none;
-      color:var(--text);
-      font-weight:650;
+      font-weight: 650;
       letter-spacing:.2px;
+      white-space:nowrap;
     }
     .brand-dot{
-      width:10px; height:10px; border-radius:999px;
+      width:10px;
+      height:10px;
+      border-radius:999px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       box-shadow: 0 0 0 6px rgba(124,58,237,.10);
     }
-
     .nav-links{
       display:flex;
       align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
+      gap: 8px;
+      flex-wrap: wrap;
       justify-content:flex-end;
     }
     .nav-links a{
-      color:var(--muted);
+      color: var(--muted2);
       text-decoration:none;
       padding: 8px 10px;
       border-radius: 10px;
@@ -112,77 +124,100 @@
       font-size: 14px;
     }
     .nav-links a:hover{
-      color:var(--text);
-      border-color: rgba(124,58,237,.35);
+      color: var(--text);
       background: rgba(255,255,255,.04);
+      border-color: rgba(124,58,237,.26);
     }
     .nav-links a.active{
       color: var(--text);
-      border-color: rgba(124,58,237,.55);
       background: rgba(124,58,237,.10);
+      border-color: rgba(124,58,237,.46);
     }
 
-    /* Page layout */
+    /* Layout */
     .wrap{
-      max-width: 1040px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 56px 20px 64px;
+      padding: 56px 20px 76px;
     }
 
+    /* Hero */
     .hero{
       display:grid;
-      grid-template-columns: 120px 1fr;
+      grid-template-columns: 1.05fr .95fr;
       gap: 22px;
-      align-items:center;
-      margin-top: 8px;
+      align-items: stretch;
+      margin-top: 10px;
     }
-    @media (max-width:720px){
+    @media (max-width: 980px){
       .hero{ grid-template-columns: 1fr; }
     }
 
-    .avatar{
-      width:120px; height:120px;
-      border-radius: 999px;
-      object-fit: cover;
-      border: 2px solid rgba(124,58,237,.45);
-      box-shadow: 0 14px 40px rgba(0,0,0,.35);
-      background: rgba(255,255,255,.03);
+    .hero-left{
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 26px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+    }
+    .hero-left::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(800px 420px at 20% 0%, rgba(124,58,237,.16), transparent 62%),
+        radial-gradient(720px 420px at 80% 20%, rgba(59,130,246,.10), transparent 58%);
+      z-index:-1;
+      filter: blur(18px);
+      opacity:.9;
     }
 
-    h1{
-      margin:0;
-      font-size: 42px;
-      line-height: 1.08;
-      letter-spacing: -0.4px;
-    }
-    .subtitle{
-      margin-top: 10px;
-      color: var(--muted);
-      line-height: 1.65;
-      font-size: 16px;
-      max-width: 76ch;
-    }
-
-    .meta{
-      margin-top: 14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .pill{
+    .kicker{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding: 7px 10px;
+      gap:10px;
+      padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing:.02em;
+    }
+    .kicker .dot{
+      width:8px;height:8px;border-radius:999px;
+      background: rgba(124,58,237,.85);
+      box-shadow: 0 0 0 5px rgba(124,58,237,.12);
     }
 
-    /* Buttons (unified for <a> and <button>) */
+    h1{
+      margin: 14px 0 10px;
+      font-size: 54px;
+      line-height: 1.02;
+      letter-spacing: -0.7px;
+    }
+    @media (max-width: 520px){
+      h1{ font-size: 42px; }
+    }
+
+    .subtitle{
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 80ch;
+    }
+
+    .cta-row{
+      margin-top: 18px;
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+
     .btn{
       appearance:none; -webkit-appearance:none;
       font: inherit;
@@ -190,28 +225,107 @@
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding: 10px 14px;
+      padding: 11px 14px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
       color: var(--text);
       text-decoration:none;
       transition: .16s ease;
+      user-select:none;
     }
     .btn:hover{
       transform: translateY(-1px);
-      border-color: rgba(124,58,237,.50);
-      box-shadow: 0 14px 40px rgba(124,58,237,.14);
+      border-color: rgba(124,58,237,.46);
+      box-shadow: 0 16px 50px rgba(124,58,237,.12);
     }
-    .btns{
-      margin-top: 16px;
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(124,58,237,.95), rgba(124,58,237,.72));
+      border-color: rgba(124,58,237,.42);
+      box-shadow: 0 20px 60px rgba(124,58,237,.16);
+    }
+    .btn.primary:hover{
+      border-color: rgba(124,58,237,.66);
+      box-shadow: 0 22px 70px rgba(124,58,237,.22);
+    }
+    .btn .icon{ width:16px; height:16px; display:inline-block; }
+
+    .meta-row{
+      margin-top: 18px;
       display:flex;
       gap: 10px;
-      flex-wrap: wrap;
+      flex-wrap:wrap;
+      align-items:center;
+      color: var(--muted2);
+      font-size: 14px;
     }
-    .icon{
-      width:16px; height:16px;
-      display:inline-block;
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      white-space:nowrap;
+    }
+
+    /* Right side: photo + stats */
+    .hero-right{
+      display:grid;
+      grid-template-rows: auto 1fr;
+      gap: 14px;
+    }
+
+    .photo{
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 14px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+    .photo img{
+      width: 100%;
+      height: 360px;
+      object-fit: cover;
+      border-radius: 16px;
+      display:block;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+    }
+    @media (max-width: 980px){
+      .photo img{ height: 320px; }
+    }
+
+    .stats{
+      border-radius: var(--radius2);
+      background: rgba(18,18,26,.48);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 18px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      display:grid;
+      gap: 12px;
+    }
+    .stat{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      align-items:baseline;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+    }
+    .stat b{
+      font-size: 13px;
+      color: rgba(236,236,247,.92);
+      letter-spacing:.02em;
+    }
+    .stat span{
+      color: var(--muted2);
+      font-size: 13px;
     }
 
     /* Sections */
@@ -220,24 +334,24 @@
     }
     .section-head{
       display:flex;
-      align-items:baseline;
       justify-content:space-between;
-      gap:12px;
+      align-items:baseline;
+      gap: 12px;
       margin-bottom: 14px;
     }
     .section h2{
       margin:0;
-      font-size: 15px;
-      letter-spacing: .12em;
+      font-size: 14px;
+      letter-spacing:.14em;
       text-transform: uppercase;
-      color: rgba(234,234,242,.92);
+      color: rgba(236,236,247,.92);
     }
     .section .hint{
-      color: var(--muted);
+      color: var(--muted2);
       font-size: 13px;
     }
 
-    /* Panels / grid */
+    /* Panels */
     .grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
@@ -245,59 +359,89 @@
     }
     .panel{
       grid-column: span 12;
+      border-radius: var(--radius2);
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
       padding: 18px;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       box-shadow: var(--shadow);
     }
 
-    /* Experience timeline */
+    /* About */
+    .about{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+    }
+    @media (max-width: 980px){
+      .about{ grid-template-columns: 1fr; }
+    }
+    .about p{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 14.5px;
+    }
+    .about-cards{
+      display:grid;
+      gap: 12px;
+    }
+    .mini{
+      border-radius: 16px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.09);
+      padding: 14px;
+    }
+    .mini h3{
+      margin:0 0 8px;
+      font-size: 13px;
+      color: rgba(236,236,247,.92);
+      letter-spacing:.02em;
+    }
+    .mini .sub{
+      color: var(--muted2);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Experience */
     .role{
       display:flex;
       justify-content:space-between;
-      gap:12px;
+      gap: 12px;
       flex-wrap:wrap;
       align-items:flex-start;
     }
     .role h3{
       margin:0 0 6px;
       font-size: 16px;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.15px;
     }
-    .role .where{
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .role .when{
-      color: var(--muted);
-      font-size: 13px;
-      white-space: nowrap;
-    }
+    .where{ color: var(--muted2); font-size: 13.5px; }
+    .when{ color: var(--muted2); font-size: 13px; white-space:nowrap; }
+
     .bullets{
       margin: 12px 0 0;
       padding-left: 18px;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.75;
       font-size: 14px;
     }
-    .bullets li{ margin: 6px 0; }
+    .bullets li{ margin: 7px 0; }
 
-    /* Skills columns */
+    /* Skills */
     .cols{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
     }
-    @media (max-width:900px){ .cols{ grid-template-columns: 1fr; } }
-    .mini h3{
-      margin:0 0 10px;
-      font-size: 14px;
-      color: rgba(234,234,242,.95);
+    @media (max-width: 980px){
+      .cols{ grid-template-columns: 1fr; }
     }
     .chips{
-      display:flex; flex-wrap:wrap; gap:10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
     }
     .chip{
       font-size: 13px;
@@ -308,99 +452,112 @@
       background: rgba(255,255,255,.03);
     }
 
-    /* Projects grid */
+    /* Projects */
     .cards{
       display:grid;
-      grid-template-columns: repeat(12,1fr);
-      gap:14px;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
     }
     .card{
       grid-column: span 6;
-      background: rgba(18,18,26,.72);
+      border-radius: var(--radius2);
+      background: rgba(18,18,26,.62);
       border: 1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
       padding: 18px;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       transition: .16s ease;
       cursor:pointer;
+      outline: none;
     }
     .card:hover{
       transform: translateY(-2px);
-      border-color: rgba(124,58,237,.40);
-      box-shadow: 0 18px 60px rgba(0,0,0,.40);
+      border-color: rgba(124,58,237,.36);
+      box-shadow: 0 22px 80px rgba(0,0,0,.42);
     }
-    .card:focus{ outline: 2px solid rgba(124,58,237,.45); outline-offset: 2px; }
-    .card h3{ margin:0 0 8px; font-size: 16px; letter-spacing:-.2px; }
-    .card p{ margin:0; color: var(--muted); line-height:1.6; font-size: 14px; }
-    .card .meta2{ margin-top: 12px; display:flex; gap:8px; flex-wrap:wrap; }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.15px;
+    }
+    .card p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .meta2{
+      margin-top: 12px;
+      display:flex;
+      gap: 8px;
+      flex-wrap:wrap;
+    }
     .badge{
       font-size: 12px;
-      color: var(--muted);
+      color: var(--muted2);
       padding: 6px 8px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
     }
-    @media (max-width:900px){ .card{ grid-column: span 12; } }
+    @media (max-width: 980px){
+      .card{ grid-column: span 12; }
+    }
 
     /* Modal */
     .modal{
-      position:fixed; inset:0;
+      position: fixed;
+      inset: 0;
       display:none;
       place-items:center;
       padding: 18px;
       background: rgba(0,0,0,.55);
-      backdrop-filter: blur(12px);
-      z-index:100;
+      backdrop-filter: blur(14px);
+      z-index: 120;
     }
     .modal.open{ display:grid; }
     .modal-card{
       width: min(980px, 100%);
       max-height: min(82vh, 760px);
       overflow:auto;
-      border-radius: var(--radius);
+      border-radius: var(--radius2);
       background: rgba(18,18,26,.88);
       border: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 30px 120px rgba(0,0,0,.60);
+      box-shadow: 0 34px 140px rgba(0,0,0,.62);
     }
     .modal-top{
       position: sticky;
       top: 0;
       background: rgba(18,18,26,.92);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,.08);
-      padding: 16px 16px;
+      padding: 16px;
       display:flex;
       justify-content:space-between;
       gap: 12px;
       align-items:flex-start;
     }
     .modal-top h3{ margin:0; font-size: 16px; }
-    .modal-sub{
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
+    .modal-sub{ margin-top: 6px; color: var(--muted2); font-size: 13px; line-height: 1.5; }
     .close{
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
       color: var(--text);
       border-radius: 12px;
       padding: 8px 10px;
-      cursor: pointer;
+      cursor:pointer;
       transition: .16s ease;
       line-height: 1;
     }
     .close:hover{
       transform: translateY(-1px);
-      border-color: rgba(124,58,237,.50);
-      box-shadow: 0 14px 40px rgba(124,58,237,.14);
+      border-color: rgba(124,58,237,.46);
+      box-shadow: 0 16px 50px rgba(124,58,237,.12);
     }
     .modal-body{ padding: 16px; }
+
     .kpis{
       display:grid;
-      grid-template-columns: repeat(12,1fr);
+      grid-template-columns: repeat(12, 1fr);
       gap: 10px;
       margin: 10px 0 16px;
     }
@@ -412,18 +569,18 @@
       padding: 10px 12px;
     }
     .kpi b{ display:block; font-size: 13px; }
-    .kpi span{ color: var(--muted); font-size: 12px; }
-    @media (max-width:900px){ .kpi{ grid-column: span 12; } }
+    .kpi span{ color: var(--muted2); font-size: 12px; }
+    @media (max-width: 980px){ .kpi{ grid-column: span 12; } }
 
     /* Toast */
     .toast{
-      position:fixed;
+      position: fixed;
       left:50%;
       bottom: 18px;
       transform: translateX(-50%) translateY(10px);
-      opacity:0;
+      opacity: 0;
       pointer-events:none;
-      z-index:120;
+      z-index: 140;
       padding: 10px 12px;
       border-radius: 12px;
       border: 1px solid rgba(255,255,255,.12);
@@ -438,17 +595,30 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Scroll reveal */
-    .reveal{ opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.in{ opacity:1; transform:none; }
+    /* Scroll “slide-up” reveal (what you asked for) */
+    .reveal{
+      opacity: 0;
+      transform: translateY(18px);
+      filter: blur(2px);
+      transition:
+        opacity .70s cubic-bezier(.2,.8,.2,1),
+        transform .70s cubic-bezier(.2,.8,.2,1),
+        filter .70s cubic-bezier(.2,.8,.2,1);
+      will-change: opacity, transform, filter;
+    }
+    .reveal.in{
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
     @media (prefers-reduced-motion: reduce){
-      .reveal{ opacity:1; transform:none; transition:none; }
+      .reveal{ opacity:1; transform:none; filter:none; transition:none; }
       body::before, body::after{ animation:none; }
     }
 
     footer{
       margin-top: 44px;
-      color: var(--muted);
+      color: var(--muted2);
       font-size: 13px;
       display:flex;
       justify-content:space-between;
@@ -456,8 +626,15 @@
       flex-wrap:wrap;
       padding-top: 10px;
     }
-    .quiet-link{ color: var(--muted); text-decoration:none; border-bottom: 1px solid rgba(255,255,255,.14); }
-    .quiet-link:hover{ color: var(--text); border-bottom-color: rgba(124,58,237,.45); }
+    .quiet-link{
+      color: var(--muted2);
+      text-decoration:none;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+    }
+    .quiet-link:hover{
+      color: var(--text);
+      border-bottom-color: rgba(124,58,237,.42);
+    }
   </style>
 </head>
 
@@ -466,11 +643,12 @@
 
   <nav class="nav">
     <div class="nav-inner">
-      <a class="brand" href="#top">
+      <a class="brand" href="#home">
         <span class="brand-dot" aria-hidden="true"></span>
         Palash Tripathi
       </a>
       <div class="nav-links">
+        <a href="#about">About</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
         <a href="#certifications">Certifications</a>
@@ -480,28 +658,32 @@
     </div>
   </nav>
 
-  <main class="wrap" id="top">
-    <!-- HERO -->
+  <main class="wrap" id="home">
+    <!-- HOME / HERO -->
     <section class="hero reveal">
-      <img class="avatar" src="assets/profile.jpg" alt="Palash Tripathi headshot" />
-      <div>
-        <h1>Data Engineer</h1>
+      <div class="hero-left">
+        <div class="kicker"><span class="dot" aria-hidden="true"></span> Data Engineer • AWS • Analytics Platforms</div>
+        <h1>Build data systems that ship.</h1>
         <div class="subtitle">
-          Data Engineer specializing in cloud-based ETL pipelines, multi-tenant data platforms, and predictive analytics across AWS, PostgreSQL, and Microsoft Fabric.
+          I design cloud ETL pipelines, multi-tenant data platforms, and BI experiences that convert messy operational data into decision-ready insights—reliably, at scale.
         </div>
 
-        <div class="meta">
-          <span class="pill">San Diego, CA</span>
-          <span class="pill">AWS • SQL • Python • Power BI</span>
-        </div>
+        <div class="cta-row">
+          <a class="btn primary" href="#projects">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+                <path d="M8 5h12M8 12h12M8 19h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M4.5 6h0M4.5 12h0M4.5 18h0" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            View Projects
+          </a>
 
-        <div class="btns">
           <a class="btn" href="assets/PalashT_Resume.pdf" target="_blank" rel="noreferrer">
             <span class="icon" aria-hidden="true">
-              <!-- document icon -->
               <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-                <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M14 3v4h4" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M14 3v4h4" stroke="currentColor" stroke-width="1.7"/>
               </svg>
             </span>
             Resume
@@ -509,12 +691,11 @@
 
           <a class="btn" href="https://www.linkedin.com/in/palash-t-a87679137/" target="_blank" rel="noreferrer">
             <span class="icon" aria-hidden="true">
-              <!-- linkedin-ish icon -->
               <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-                <path d="M6.5 9.5V18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M6.5 9.5V18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
                 <path d="M6.5 6.5h0" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-                <path d="M10 18v-4.6c0-2.1 2.5-2.3 2.5 0V18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M12.5 11.2c.6-.9 1.6-1.4 2.7-1.4 2 0 3.3 1.2 3.3 3.7V18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M10 18v-4.6c0-2.1 2.5-2.3 2.5 0V18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M12.5 11.2c.6-.9 1.6-1.4 2.7-1.4 2 0 3.3 1.2 3.3 3.7V18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
               </svg>
             </span>
             LinkedIn
@@ -522,10 +703,9 @@
 
           <a class="btn" href="https://github.com/palash-tripathi" target="_blank" rel="noreferrer">
             <span class="icon" aria-hidden="true">
-              <!-- github-ish icon -->
               <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-                <path d="M9 19c-4 1.2-4-2-5-2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M15 19v-3.1c0-.9.3-1.4.8-1.8-2.7-.3-5.6-1.3-5.6-6a4.7 4.7 0 0 1 1.2-3.2 4.3 4.3 0 0 1 .1-3.1s1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0C23 1.6 24 1.9 24 1.9a4.3 4.3 0 0 1 .1 3.1A4.7 4.7 0 0 1 25.3 8c0 4.7-2.9 5.7-5.6 6 .5.4.9 1.2.9 2.4V19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M9 19c-4 1.2-4-2-5-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M15 19v-3.1c0-.9.3-1.4.8-1.8-2.7-.3-5.6-1.3-5.6-6a4.7 4.7 0 0 1 1.2-3.2 4.3 4.3 0 0 1 .1-3.1s1-.3 3.3 1.2a11.3 11.3 0 0 1 6 0C23 1.6 24 1.9 24 1.9a4.3 4.3 0 0 1 .1 3.1A4.7 4.7 0 0 1 25.3 8c0 4.7-2.9 5.7-5.6 6 .5.4.9 1.2.9 2.4V19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
               </svg>
             </span>
             GitHub
@@ -533,15 +713,70 @@
 
           <button class="btn" id="copyEmail" type="button" aria-label="Copy email">
             <span class="icon" aria-hidden="true">
-              <!-- chain link icon -->
               <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
-                <path d="M10 13.5l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M8.6 15.4l-1.4 1.4a3.5 3.5 0 0 1-5-5l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M15.4 8.6l1.4-1.4a3.5 3.5 0 0 1 5 5l-1.4 1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M10 13.5l4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M8.6 15.4l-1.4 1.4a3.5 3.5 0 0 1-5-5l1.4-1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M15.4 8.6l1.4-1.4a3.5 3.5 0 0 1 5 5l-1.4 1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
               </svg>
             </span>
             Email
           </button>
+        </div>
+
+        <div class="meta-row">
+          <span class="pill">San Diego, CA</span>
+          <span class="pill">SQL • Python • AWS • Power BI</span>
+          <span class="pill">Open to Data Engineering roles</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="photo reveal">
+          <img src="assets/profile.jpg" alt="Palash Tripathi" />
+        </div>
+
+        <div class="stats reveal">
+          <div class="stat"><b>Client onboarding</b><span>60–70% faster</span></div>
+          <div class="stat"><b>Manual reporting</b><span>~40% reduced</span></div>
+          <div class="stat"><b>Forecasting impact</b><span>inventory accuracy improved</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section reveal" id="about">
+      <div class="section-head">
+        <h2>About</h2>
+        <div class="hint">How I work, what I optimize for.</div>
+      </div>
+
+      <div class="panel about">
+        <div>
+          <p>
+            I’m a Data Engineer focused on building systems that teams actually trust—pipelines that are observable,
+            data models that are consistent, and dashboards that reflect the same definitions across the business.
+            I’ve worked across analytics platforms, ETL frameworks, and BI experiences—often at the intersection of
+            engineering and operations.
+          </p>
+          <p style="margin-top:12px">
+            I care about fundamentals: clean data contracts, validation, reproducibility, and performance—then packaging
+            it into a user experience (APIs, semantic models, dashboards) that makes decisions easier.
+          </p>
+        </div>
+
+        <div class="about-cards">
+          <div class="mini">
+            <h3>What I build</h3>
+            <div class="sub">ETL frameworks, multi-tenant data platforms, BI semantic layers, operational analytics.</div>
+          </div>
+          <div class="mini">
+            <h3>What I optimize</h3>
+            <div class="sub">Reliability, data quality, cost/performance, stakeholder clarity, and speed to insight.</div>
+          </div>
+          <div class="mini">
+            <h3>How I deliver</h3>
+            <div class="sub">Iterative launches, tight feedback loops, clean documentation, and measurable outcomes.</div>
+          </div>
         </div>
       </div>
     </section>
@@ -550,11 +785,11 @@
     <section class="section reveal" id="experience">
       <div class="section-head">
         <h2>Experience</h2>
-        <div class="hint">Impact-focused bullets, measurable outcomes.</div>
+        <div class="hint">Impact bullets with measurable outcomes.</div>
       </div>
 
       <div class="grid">
-        <article class="panel">
+        <article class="panel reveal">
           <div class="role">
             <div>
               <h3>E2 Consulting Engineers Inc. — Data Engineer & Analyst</h3>
@@ -563,31 +798,30 @@
             <div class="when">May 2023 — Present</div>
           </div>
           <ul class="bullets">
-            <li>Designed scalable ETL frameworks using SQL, Python, AWS Glue, and Microsoft Fabric for automated ingestion & transformation across business areas.</li>
-            <li>Engineered a multi-tenant PostgreSQL analytics platform with automated schema provisioning, reducing new client onboarding time by <b>60–70%</b> while ensuring secure data isolation.</li>
+            <li>Designed scalable ETL frameworks (SQL, Python, AWS Glue, Microsoft Fabric) supporting automated ingestion and transformation across business areas.</li>
+            <li>Engineered a multi-tenant PostgreSQL analytics platform with automated schema provisioning, reducing onboarding time by <b>60–70%</b> with secure isolation.</li>
             <li>Embedded real-time KPI dashboards and semantic models in Power BI and Apache Superset; integrated internal APIs and reduced manual reporting time by <b>40%</b>.</li>
-            <li>Implemented automated data quality validation in the AWS data lake using Glue Jobs, DynamoDB lookups, and PostgreSQL integrity checks to improve reliability across reporting pipelines.</li>
+            <li>Implemented automated data quality validation in the AWS data lake using Glue jobs, DynamoDB lookups, and PostgreSQL integrity checks.</li>
             <li>Led migration of analytics workflows from Microsoft Fabric to AWS to improve scalability and long-term performance.</li>
           </ul>
         </article>
 
-        <article class="panel">
+        <article class="panel reveal">
           <div class="role">
             <div>
-              <h3>Northern Trust — Full Stack Engineer</h3>
+              <h3>Northern Trust Bank — Full Stack Engineer</h3>
               <div class="where">Chicago, IL</div>
             </div>
             <div class="when">Dec 2021 — Dec 2022</div>
           </div>
           <ul class="bullets">
-            <li>Migrated a monolithic architecture to microservices using Java, Spring Boot, Docker, and Kubernetes, improving deployment flexibility and performance.</li>
-            <li>Developed responsive UI features using React/Redux and modern JavaScript to enhance application usability.</li>
-            <li>Built secure RESTful services with OAuth2 authentication and optimized SQL cluster performance for high workloads.</li>
-            <li>Improved CI/CD automation (Bamboo/Concourse/Git) to streamline builds and releases.</li>
+            <li>Migrated monolithic architecture to microservices using Java, Spring Boot, Docker, and Kubernetes to improve deployment flexibility and performance.</li>
+            <li>Built secure REST services with OAuth2 and optimized SQL cluster performance for high workloads.</li>
+            <li>Enhanced UI features using React/Redux and modern JavaScript to improve usability.</li>
           </ul>
         </article>
 
-        <article class="panel">
+        <article class="panel reveal">
           <div class="role">
             <div>
               <h3>StonedGenie — Data Engineer I</h3>
@@ -597,9 +831,8 @@
           </div>
           <ul class="bullets">
             <li>Built forecasting models and automated inventory reporting to improve stock planning accuracy.</li>
-            <li>Designed and maintained PostgreSQL data models; automated SQL-based ETL workflows with indexing and query optimization.</li>
-            <li>Developed ML models that increased customer CTR by <b>33%</b> and improved targeted marketing effectiveness.</li>
-            <li>Delivered dashboards for sales and campaign performance to provide real-time visibility into key metrics.</li>
+            <li>Maintained PostgreSQL databases with indexing, query optimization, and automated SQL ETL workflows.</li>
+            <li>Developed ML models that increased customer CTR by <b>33%</b> and improved targeted marketing performance.</li>
           </ul>
         </article>
       </div>
@@ -609,13 +842,13 @@
     <section class="section reveal" id="skills">
       <div class="section-head">
         <h2>Skills</h2>
-        <div class="hint">Grouped for fast scanning.</div>
+        <div class="hint">Grouped for recruiter scanning.</div>
       </div>
 
-      <div class="panel">
+      <div class="panel reveal">
         <div class="cols">
-          <div class="mini">
-            <h3>Data & Programming</h3>
+          <div>
+            <div style="color:rgba(236,236,247,.92);font-size:13px;margin-bottom:10px;letter-spacing:.02em">Data & Programming</div>
             <div class="chips">
               <span class="chip">SQL</span>
               <span class="chip">Python</span>
@@ -624,27 +857,25 @@
               <span class="chip">JavaScript</span>
             </div>
           </div>
-
-          <div class="mini">
-            <h3>Cloud & Platforms</h3>
+          <div>
+            <div style="color:rgba(236,236,247,.92);font-size:13px;margin-bottom:10px;letter-spacing:.02em">Cloud & Platforms</div>
             <div class="chips">
               <span class="chip">AWS (Glue, Lambda, S3)</span>
               <span class="chip">DynamoDB</span>
               <span class="chip">Redshift</span>
-              <span class="chip">Linux</span>
               <span class="chip">Docker</span>
+              <span class="chip">Linux</span>
               <span class="chip">CI/CD</span>
             </div>
           </div>
-
-          <div class="mini">
-            <h3>Analytics & BI</h3>
+          <div>
+            <div style="color:rgba(236,236,247,.92);font-size:13px;margin-bottom:10px;letter-spacing:.02em">Analytics & BI</div>
             <div class="chips">
               <span class="chip">Power BI</span>
               <span class="chip">Apache Superset</span>
               <span class="chip">Microsoft Fabric</span>
+              <span class="chip">Tableau</span>
               <span class="chip">SAP HANA</span>
-              <span class="chip">Primavera P6</span>
             </div>
           </div>
         </div>
@@ -655,10 +886,10 @@
     <section class="section reveal" id="certifications">
       <div class="section-head">
         <h2>Certifications</h2>
-        <div class="hint">Keep this tight and verifiable.</div>
+        <div class="hint">Verifiable and relevant.</div>
       </div>
 
-      <div class="panel">
+      <div class="panel reveal">
         <ul class="bullets" style="margin-top:0">
           <li>Microsoft PL-300</li>
           <li>SQL (Dual Certified)</li>
@@ -670,11 +901,11 @@
     <section class="section reveal" id="projects">
       <div class="section-head">
         <h2>Projects</h2>
-        <div class="hint">Click a project for details.</div>
+        <div class="hint">Click a project for a case-study view.</div>
       </div>
 
       <div class="cards">
-        <article class="card" data-project="tenant" tabindex="0">
+        <article class="card reveal" data-project="tenant" tabindex="0">
           <h3>Multi-tenant analytics platform</h3>
           <p>Automated schema provisioning and tenant isolation for scalable client onboarding.</p>
           <div class="meta2">
@@ -682,25 +913,25 @@
           </div>
         </article>
 
-        <article class="card" data-project="dq" tabindex="0">
+        <article class="card reveal" data-project="dq" tabindex="0">
           <h3>Cloud ETL + data quality framework</h3>
-          <p>Serverless ingestion and validation checks to improve reporting reliability.</p>
+          <p>Serverless ingestion and validation checks that improved reporting reliability.</p>
           <div class="meta2">
             <span class="badge">Glue</span><span class="badge">Lambda</span><span class="badge">DynamoDB</span>
           </div>
         </article>
 
-        <article class="card" data-project="forecast" tabindex="0">
+        <article class="card reveal" data-project="forecast" tabindex="0">
           <h3>Forecasting & supply chain analytics</h3>
-          <p>Predictive models to support planning accuracy and inventory decisions.</p>
+          <p>Predictive modeling and reporting to support inventory planning decisions.</p>
           <div class="meta2">
             <span class="badge">Python</span><span class="badge">SQL</span><span class="badge">Power BI</span>
           </div>
         </article>
 
-        <article class="card" data-project="dashboards" tabindex="0">
+        <article class="card reveal" data-project="dashboards" tabindex="0">
           <h3>Embedded KPI dashboards</h3>
-          <p>Real-time dashboards with semantic models and API-driven metrics.</p>
+          <p>Semantic models + API-driven metrics embedded into BI tools for real-time decisions.</p>
           <div class="meta2">
             <span class="badge">Power BI</span><span class="badge">Superset</span><span class="badge">APIs</span>
           </div>
@@ -715,8 +946,8 @@
         <div class="hint">Fast ways to reach you.</div>
       </div>
 
-      <div class="panel">
-        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--muted);font-size:14px">
+      <div class="panel reveal">
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--muted2);font-size:14px">
           <span class="pill">palash.trip@gmail.com</span>
           <span class="pill">San Diego, CA</span>
           <a class="quiet-link" href="assets/PalashT_Resume.pdf" target="_blank" rel="noreferrer">Download resume</a>
@@ -726,7 +957,7 @@
 
     <footer class="reveal">
       <div>© <span id="year"></span> Palash Tripathi</div>
-      <div><a class="quiet-link" href="#top">Back to top</a></div>
+      <div><a class="quiet-link" href="#home">Back to top</a></div>
     </footer>
   </main>
 
@@ -760,8 +991,13 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Scroll reveal
-    const revealEls = document.querySelectorAll(".reveal");
+    // Scroll reveal (slide-up with stagger)
+    const revealEls = Array.from(document.querySelectorAll(".reveal"));
+    revealEls.forEach((el, i) => {
+      // small stagger that feels premium
+      el.style.transitionDelay = (Math.min(i, 10) * 0.03) + "s";
+    });
+
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -769,17 +1005,19 @@
           io.unobserve(e.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.14 });
+
     revealEls.forEach(el => io.observe(el));
 
     // Active nav highlighting
-    const sections = ["experience","skills","certifications","projects","contact"]
-      .map(id => document.getElementById(id));
+    const sectionIds = ["about","experience","skills","certifications","projects","contact"];
+    const sections = sectionIds.map(id => document.getElementById(id));
     const navLinks = Array.from(document.querySelectorAll(".nav-links a"))
       .filter(a => a.getAttribute("href")?.startsWith("#"));
+
     function setActive(){
-      const y = window.scrollY + 140;
-      let current = "experience";
+      const y = window.scrollY + 160;
+      let current = "about";
       for (const s of sections) if (s && s.offsetTop <= y) current = s.id;
       navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${current}`));
     }
@@ -821,7 +1059,7 @@
       showToast(ok ? "Email copied" : "Copy failed");
     });
 
-    // Projects modal
+    // Projects modal (case-study style)
     const projects = {
       tenant: {
         title: "Multi-tenant analytics platform",
@@ -829,17 +1067,17 @@
         kpis: [
           { label: "Impact", value: "60–70% faster onboarding" },
           { label: "Design", value: "Tenant isolation + automation" },
-          { label: "Outcome", value: "Scalable analytics foundation" }
+          { label: "Result", value: "Scalable analytics foundation" }
         ],
         body: `
-          <p style="color:var(--muted);margin:0 0 12px;line-height:1.7;font-size:14px">
-            Built a multi-tenant PostgreSQL analytics platform with automated schema provisioning and secure isolation.
+          <p style="color:var(--muted);margin:0 0 12px;line-height:1.75;font-size:14px">
+            Built a multi-tenant PostgreSQL analytics platform with automated schema provisioning and secure tenant isolation.
           </p>
-          <h4 style="margin:16px 0 8px;font-size:14px">Highlights</h4>
-          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.7;font-size:14px">
+          <h4 style="margin:16px 0 8px;font-size:14px">What I built</h4>
+          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.75;font-size:14px">
             <li>Automated tenant setup to reduce onboarding time by 60–70%.</li>
-            <li>Designed tenant-aware schemas and guardrails for reliability and isolation.</li>
-            <li>Optimized analytics queries and data models for reporting workloads.</li>
+            <li>Tenant-aware schemas and guardrails to maintain isolation and reliability.</li>
+            <li>Analytics-optimized models and queries for reporting workloads.</li>
           </ul>
         `
       },
@@ -849,16 +1087,16 @@
         kpis: [
           { label: "Goal", value: "Reliable pipelines" },
           { label: "Method", value: "Validation + integrity checks" },
-          { label: "Result", value: "Higher reporting trust" }
+          { label: "Outcome", value: "Higher reporting trust" }
         ],
         body: `
-          <p style="color:var(--muted);margin:0 0 12px;line-height:1.7;font-size:14px">
-            Implemented ETL workflows with automated data quality validation in the AWS data lake.
+          <p style="color:var(--muted);margin:0 0 12px;line-height:1.75;font-size:14px">
+            Implemented ETL workflows with automated data quality validation inside an AWS data lake.
           </p>
-          <h4 style="margin:16px 0 8px;font-size:14px">Highlights</h4>
-          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.7;font-size:14px">
-            <li>Glue jobs for ingestion/transforms with DynamoDB lookups for validation rules.</li>
-            <li>PostgreSQL integrity checks to prevent downstream reporting failures.</li>
+          <h4 style="margin:16px 0 8px;font-size:14px">What I built</h4>
+          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.75;font-size:14px">
+            <li>Glue jobs for ingestion/transforms with validation rules sourced via DynamoDB lookups.</li>
+            <li>PostgreSQL integrity checks to prevent downstream dashboard failures.</li>
             <li>Improved accuracy and reliability across reporting pipelines.</li>
           </ul>
         `
@@ -869,16 +1107,16 @@
         kpis: [
           { label: "Outcome", value: "Improved planning accuracy" },
           { label: "Use case", value: "Reduce stockouts/overstock" },
-          { label: "Delivery", value: "Operational visibility" }
+          { label: "Delivery", value: "Decision-ready reporting" }
         ],
         body: `
-          <p style="color:var(--muted);margin:0 0 12px;line-height:1.7;font-size:14px">
-            Developed forecasting models and reporting to improve inventory decisions and supply chain planning.
+          <p style="color:var(--muted);margin:0 0 12px;line-height:1.75;font-size:14px">
+            Developed forecasting models and reporting to support inventory decisions and supply chain planning.
           </p>
-          <h4 style="margin:16px 0 8px;font-size:14px">Highlights</h4>
-          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.7;font-size:14px">
-            <li>Prepared model-ready datasets using SQL transformations and feature engineering.</li>
-            <li>Integrated outputs into decision-ready Power BI reporting.</li>
+          <h4 style="margin:16px 0 8px;font-size:14px">What I built</h4>
+          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.75;font-size:14px">
+            <li>Model-ready datasets via SQL transformations and feature preparation.</li>
+            <li>Forecast outputs integrated into Power BI reporting for stakeholders.</li>
           </ul>
         `
       },
@@ -886,18 +1124,19 @@
         title: "Embedded KPI dashboards",
         sub: "Power BI • Apache Superset • APIs",
         kpis: [
-          { label: "Impact", value: "40% less manual reporting" },
+          { label: "Impact", value: "~40% less manual reporting" },
           { label: "Approach", value: "Semantic models + APIs" },
-          { label: "Cost", value: "Lower embedding overhead" }
+          { label: "Value", value: "Faster self-serve decisions" }
         ],
         body: `
-          <p style="color:var(--muted);margin:0 0 12px;line-height:1.7;font-size:14px">
-            Embedded KPI dashboards with semantic models and API-driven metrics in Power BI and Apache Superset.
+          <p style="color:var(--muted);margin:0 0 12px;line-height:1.75;font-size:14px">
+            Delivered embedded KPI dashboards with semantic models and API-driven metrics across Power BI and Apache Superset.
           </p>
-          <h4 style="margin:16px 0 8px;font-size:14px">Highlights</h4>
-          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.7;font-size:14px">
-            <li>Integrated internal APIs and standardized metric definitions via semantic models.</li>
-            <li>Adopted open-source embedding approach to reduce costs while improving flexibility.</li>
+          <h4 style="margin:16px 0 8px;font-size:14px">What I built</h4>
+          <ul style="margin:0;padding-left:18px;color:var(--muted);line-height:1.75;font-size:14px">
+            <li>Standardized metrics via semantic models for consistency across teams.</li>
+            <li>Integrated internal APIs to enable real-time KPI experiences.</li>
+            <li>Improved self-serve reporting and reduced recurring manual effort.</li>
           </ul>
         `
       }
