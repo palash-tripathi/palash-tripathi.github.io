@@ -16,7 +16,6 @@
       --accent: #7c3aed;  /* purple */
       --accent2:#3b82f6;  /* blue */
       --shadow: 0 20px 90px rgba(0,0,0,.55);
-      --radius: 18px;
       --radius2: 22px;
     }
 
@@ -57,7 +56,7 @@
       to  { transform: translate( 1.0%, 0.6%) scale(1.05); }
     }
 
-    /* Mouse spotlight (very subtle) */
+    /* Mouse spotlight */
     .spotlight{
       position: fixed;
       inset: 0;
@@ -131,82 +130,6 @@
       color: var(--text);
       background: rgba(124,58,237,.10);
       border-color: rgba(124,58,237,.46);
-    }
-
-    /* Sticky “Now” bar */
-    .nowbar{
-      position: sticky;
-      top: 52px; /* sits under nav */
-      z-index: 55;
-      background: rgba(7,8,12,.50);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .nowbar-inner{
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 10px 20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 14px;
-    }
-    .now-left{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      min-width: 0;
-    }
-    .pulse{
-      width:8px;
-      height:8px;
-      border-radius:999px;
-      background: rgba(124,58,237,.95);
-      box-shadow: 0 0 0 6px rgba(124,58,237,.12);
-      animation: pulse 1.8s ease-in-out infinite;
-    }
-    @keyframes pulse{
-      0%,100%{ transform: scale(1); opacity: .9; }
-      50%{ transform: scale(1.15); opacity: 1; }
-    }
-    .now-title{
-      font-size: 13px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: rgba(236,236,247,.86);
-      white-space: nowrap;
-    }
-    .now-text{
-      font-size: 13px;
-      color: rgba(236,236,247,.62);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 70ch;
-    }
-    .now-right{
-      display:flex;
-      gap: 10px;
-      align-items:center;
-      white-space: nowrap;
-    }
-    .now-link{
-      font-size: 13px;
-      color: rgba(236,236,247,.70);
-      text-decoration:none;
-      padding: 7px 10px;
-      border-radius: 10px;
-      border: 1px solid transparent;
-      transition: .16s ease;
-    }
-    .now-link:hover{
-      color: rgba(236,236,247,.92);
-      background: rgba(255,255,255,.04);
-      border-color: rgba(124,58,237,.26);
-    }
-    @media (max-width: 780px){
-      .now-right{ display:none; }
-      .now-text{ max-width: 42ch; }
     }
 
     /* Layout */
@@ -362,9 +285,9 @@
     }
     .photo img{
       width: 100%;
-      height: 420px;              /* bigger rectangle */
+      height: 420px;
       object-fit: cover;
-      object-position: 50% 12%;   /* FIX: anchor toward top so head doesn't crop */
+      object-position: 50% 12%;
       border-radius: 16px;
       display:block;
       border: 1px solid rgba(255,255,255,.10);
@@ -579,6 +502,39 @@
       .card{ grid-column: span 12; }
     }
 
+    /* Hobbies */
+    .hobby{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+    @media (max-width: 980px){
+      .hobby{ grid-template-columns: 1fr; }
+    }
+
+    .hobby-photo{
+      border-radius: var(--radius2);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 14px;
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+    }
+    .hobby-photo img{
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      object-position: 50% 45%;
+      border-radius: 16px;
+      display:block;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+    }
+    @media (max-width: 980px){
+      .hobby-photo img{ height: 280px; }
+    }
+
     /* Modal */
     .modal{
       position: fixed;
@@ -729,24 +685,11 @@
         <a href="#skills">Skills</a>
         <a href="#certifications">Certifications</a>
         <a href="#projects">Projects</a>
+        <a href="#hobbies">Hobbies</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
   </nav>
-
-  <div class="nowbar" id="nowbar" aria-label="Now">
-    <div class="nowbar-inner">
-      <div class="now-left">
-        <span class="pulse" aria-hidden="true"></span>
-        <span class="now-title">Now</span>
-        <span class="now-text">Building reliable analytics platforms • Open to Data Engineering roles</span>
-      </div>
-      <div class="now-right">
-        <a class="now-link" href="#projects">Projects</a>
-        <a class="now-link" href="assets/PalashT_Resume.pdf" target="_blank" rel="noreferrer">Resume</a>
-      </div>
-    </div>
-  </div>
 
   <main class="wrap" id="home">
     <!-- HOME / HERO -->
@@ -1029,6 +972,36 @@
       </div>
     </section>
 
+    <!-- HOBBIES -->
+    <section class="section reveal" id="hobbies">
+      <div class="section-head">
+        <h2>Hobbies</h2>
+        <div class="hint">A quick look beyond work.</div>
+      </div>
+
+      <div class="panel hobby">
+        <div>
+          <div style="color:rgba(236,236,247,.92);font-size:15px;letter-spacing:-.2px;margin-bottom:10px">
+            Golf
+          </div>
+          <p style="margin:0;color:var(--muted);line-height:1.75;font-size:14.5px">
+            Golf keeps me sharp: patience, precision, and strategy—one shot at a time. I enjoy practicing and playing
+            on weekends whenever I can.
+          </p>
+
+          <div style="margin-top:14px;display:flex;flex-wrap:wrap;gap:10px">
+            <span class="pill">Weekend rounds</span>
+            <span class="pill">Practice range</span>
+            <span class="pill">Consistency mindset</span>
+          </div>
+        </div>
+
+        <div class="hobby-photo reveal">
+          <img src="assets/golf.jpg" alt="Golf" />
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section class="section reveal" id="contact">
       <div class="section-head">
@@ -1081,7 +1054,7 @@
     // Year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Scroll reveal (slide-up) with tasteful stagger
+    // Scroll reveal (slide-up) with stagger
     const revealEls = Array.from(document.querySelectorAll(".reveal"));
     revealEls.forEach((el, i) => {
       el.style.transitionDelay = (Math.min(i, 10) * 0.03) + "s";
@@ -1099,7 +1072,7 @@
     revealEls.forEach(el => io.observe(el));
 
     // Active nav highlighting
-    const sectionIds = ["about","experience","skills","certifications","projects","contact"];
+    const sectionIds = ["about","experience","skills","certifications","projects","hobbies","contact"];
     const sections = sectionIds.map(id => document.getElementById(id));
     const navLinks = Array.from(document.querySelectorAll(".nav-links a"))
       .filter(a => a.getAttribute("href")?.startsWith("#"));
@@ -1112,12 +1085,6 @@
     }
     window.addEventListener("scroll", setActive, { passive:true });
     setActive();
-
-    // Now bar micro-behavior (very subtle)
-    const nb = document.getElementById("nowbar");
-    window.addEventListener("scroll", () => {
-      nb.style.opacity = window.scrollY > 140 ? "0.94" : "1";
-    }, { passive: true });
 
     // Copy email + toast
     const emailValue = "palash.trip@gmail.com";
