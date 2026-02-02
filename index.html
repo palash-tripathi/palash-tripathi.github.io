@@ -676,6 +676,37 @@
       color: var(--text);
       border-bottom-color: rgba(124,58,237,.42);
     }
+    #typing-text::after {
+  content: "|";
+  animation: blink 1s infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+<style>
+  /* Typing cursor */
+  #typing-text::after {
+    content: "|";
+    animation: blink 1s infinite;
+    margin-left: 4px;
+  }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    #typing-text::after {
+      animation: none;
+    }
+  }
+</style>
+
   </style>
 </head>
 
@@ -1300,5 +1331,26 @@
       if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
     });
   </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const text = "Built data systems that ship.";
+    const speed = 55; // typing speed (ms)
+    const delayBeforeStart = 500; // delay before typing starts
+    let index = 0;
+
+    const target = document.getElementById("typing-text");
+
+    function typeEffect() {
+      if (index < text.length) {
+        target.textContent += text.charAt(index);
+        index++;
+        setTimeout(typeEffect, speed);
+      }
+    }
+
+    setTimeout(typeEffect, delayBeforeStart);
+  });
+</script>
+
 </body>
 </html>
