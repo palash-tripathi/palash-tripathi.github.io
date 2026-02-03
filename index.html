@@ -1351,6 +1351,8 @@ function rand(min, max) {
 
         // longer pauses on punctuation / spaces (feels human)
         if (ch === " ") d += rand(10, 55);
+        // ease-in: first few chars slower, then normal
+        if (i < 6) d += rand(40, 120);
         if (ch === ",") d += rand(120, 220);
         if (ch === "." || ch === "!" || ch === "?") d += rand(180, 320);
         if (ch === "-" || ch === "—") d += rand(70, 140);
