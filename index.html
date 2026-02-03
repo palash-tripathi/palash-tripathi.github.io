@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8XXE8ZV4JZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8XXE8ZV4JZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8XXE8ZV4JZ');
+  </script>
 
-  gtag('config', 'G-8XXE8ZV4JZ');
-</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Palash Tripathi | Data Engineer</title>
@@ -534,7 +534,7 @@
       width: 100%;
       height: 340px;
       object-fit: cover;
-      object-position: 50% 78%; /* FIX: shows more bottom (legs), cuts sky */
+      object-position: 50% 78%;
       border-radius: 16px;
       display:block;
       border: 1px solid rgba(255,255,255,.10);
@@ -652,9 +652,12 @@
       transform: translateY(0);
       filter: blur(0);
     }
+
     @media (prefers-reduced-motion: reduce){
       .reveal{ opacity:1; transform:none; filter:none; transition:none; }
       body::before, body::after{ animation:none; }
+      /* Reduced motion: also remove typing cursor */
+      #typing-text.typing::after{ animation:none; content:""; }
     }
 
     footer{
@@ -676,37 +679,17 @@
       color: var(--text);
       border-bottom-color: rgba(124,58,237,.42);
     }
-    #typing-text::after {
-  content: "|";
-  animation: blink 1s infinite;
-  margin-left: 4px;
-}
 
-@keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
-}
-<style>
-  /* Typing cursor */
-  #typing-text::after {
-    content: "|";
-    animation: blink 1s infinite;
-    margin-left: 4px;
-  }
-
-  @keyframes blink {
-    0%, 50%, 100% { opacity: 1; }
-    25%, 75% { opacity: 0; }
-  }
-
-  /* Respect reduced motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    #typing-text::after {
-      animation: none;
+    /* ✅ Typing cursor (ONLY while typing) */
+    #typing-text.typing::after{
+      content:"|";
+      margin-left:4px;
+      animation: blink 1s infinite;
     }
-  }
-</style>
-
+    @keyframes blink{
+      0%,50%,100%{opacity:1;}
+      25%,75%{opacity:0;}
+    }
   </style>
 </head>
 
@@ -728,8 +711,6 @@
         <a href="#projects">Projects</a>
         <a href="#hobbies">Hobbies</a>
         <a href="#contact">Contact</a>
-        
-
       </div>
     </div>
   </nav>
@@ -739,7 +720,10 @@
     <section class="hero reveal">
       <div class="hero-left">
         <div class="kicker"><span class="dot" aria-hidden="true"></span> Data Engineer • AWS • Analytics Platforms</div>
-        <h1>Build data systems that ship.</h1>
+
+        <!-- ✅ TYPING TARGET: must be empty initially -->
+        <h1 id="typing-text" data-text="Build data systems that ship."></h1>
+
         <div class="subtitle">
           I design cloud ETL pipelines, multi-tenant data platforms, and BI experiences that convert operational data into
           decision-ready insights - reliably, at scale.
@@ -979,7 +963,7 @@
         <h2>Published Research</h2>
         <div class="hint">Published work & writing.</div>
       </div>
-    
+
       <div class="panel reveal">
         <div style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start">
           <div style="max-width:78ch">
@@ -990,7 +974,7 @@
               Designed a system to track and monitor Soldier's health signals and location/position for safety and timely response. Paper published in the International Journal of Innovative Research in Computer and Communication Engineering.
             </div>
           </div>
-    
+
           <a class="btn" href="assets/research.pdf" target="_blank" rel="noreferrer">
             <span class="icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
@@ -1004,7 +988,6 @@
         </div>
       </div>
     </section>
-    
 
     <!-- PROJECTS -->
     <section class="section reveal" id="projects">
@@ -1128,7 +1111,8 @@
     }, { passive: true });
 
     // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
     // Scroll reveal (slide-up) with stagger
     const revealEls = Array.from(document.querySelectorAll(".reveal"));
@@ -1147,28 +1131,29 @@
 
     revealEls.forEach(el => io.observe(el));
 
-    // Active nav highlighting
-    const sectionIds = ["about","experience","skills","certifications","projects","hobbies","contact"];
-    const sections = sectionIds.map(id => document.getElementById(id));
+    // Active nav highlighting (✅ include research)
+    const sectionIds = ["about","experience","skills","certifications","research","projects","hobbies","contact"];
+    const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
     const navLinks = Array.from(document.querySelectorAll(".nav-links a"))
-      .filter(a => a.getAttribute("href")?.startsWith("#"));
+      .filter(a => (a.getAttribute("href") || "").startsWith("#"));
 
     function setActive(){
       const y = window.scrollY + 180;
-      let current = "about";
-      for (const s of sections) if (s && s.offsetTop <= y) current = s.id;
+      let current = sections.length ? sections[0].id : "about";
+      for (const s of sections) if (s.offsetTop <= y) current = s.id;
       navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === `#${current}`));
     }
     window.addEventListener("scroll", setActive, { passive:true });
     setActive();
 
-    // Copy email + toast
+    // Copy email + toast (✅ guarded)
     const emailValue = "palash.trip@gmail.com";
     const copyBtn = document.getElementById("copyEmail");
     const toast = document.getElementById("toast");
     let toastTimer;
 
     function showToast(msg){
+      if (!toast) return;
       toast.textContent = msg;
       toast.classList.add("show");
       clearTimeout(toastTimer);
@@ -1192,10 +1177,12 @@
       }
     }
 
-    copyBtn.addEventListener("click", async () => {
-      const ok = await copyToClipboard(emailValue);
-      showToast(ok ? "Email copied" : "Copy failed");
-    });
+    if (copyBtn) {
+      copyBtn.addEventListener("click", async () => {
+        const ok = await copyToClipboard(emailValue);
+        showToast(ok ? "Email copied" : "Copy failed");
+      });
+    }
 
     // Projects modal (case-study style)
     const projects = {
@@ -1288,7 +1275,7 @@
 
     function openModal(key){
       const p = projects[key];
-      if (!p) return;
+      if (!p || !modal || !modalTitle || !modalSub || !modalBody || !modalClose) return;
 
       modalTitle.textContent = p.title;
       modalSub.textContent = p.sub;
@@ -1313,6 +1300,7 @@
     }
 
     function closeModal(){
+      if (!modal) return;
       modal.classList.remove("open");
       modal.setAttribute("aria-hidden","true");
       document.body.style.overflow = "";
@@ -1325,32 +1313,73 @@
       });
     });
 
-    modalClose.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+    if (modalClose) modalClose.addEventListener("click", closeModal);
+    if (modal) modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
     window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+      if (e.key === "Escape" && modal && modal.classList.contains("open")) closeModal();
     });
-  </script>
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const text = "Built data systems that ship.";
-    const speed = 55; // typing speed (ms)
-    const delayBeforeStart = 500; // delay before typing starts
-    let index = 0;
 
-    const target = document.getElementById("typing-text");
+    /* ==========================
+       ✅ Typing animation (ONE place)
+       ========================== */
+    document.addEventListener("DOMContentLoaded", () => {
+      const el = document.getElementById("typing-text");
+      if (!el) return;
 
-    function typeEffect() {
-      if (index < text.length) {
-        target.textContent += text.charAt(index);
-        index++;
-        setTimeout(typeEffect, speed);
+      const text = el.dataset.text || "Build data systems that ship.";
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion) {
+        el.textContent = text;     // instant, no animation
+        return;
       }
-    }
 
-    setTimeout(typeEffect, delayBeforeStart);
-  });
+      el.textContent = "";
+      el.classList.add("typing");
+
+      let i = 0;
+const startDelay = 450;
+
+function rand(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// returns a delay in ms based on the next character
+      function nextDelay(ch) {
+        // base human typing range
+        let d = rand(35, 95);
+
+        // longer pauses on punctuation / spaces (feels human)
+        if (ch === " ") d += rand(10, 55);
+        if (ch === ",") d += rand(120, 220);
+        if (ch === "." || ch === "!" || ch === "?") d += rand(180, 320);
+        if (ch === "-" || ch === "—") d += rand(70, 140);
+
+        // small chance of a micro-pause (thinking)
+        if (Math.random() < 0.06) d += rand(120, 260);
+
+        // clamp so it never gets ridiculous
+        return Math.min(d, 420);
+      }
+
+      function type() {
+        const ch = text.charAt(i);
+        el.textContent += ch;
+        i++;
+
+        if (i < text.length) {
+          setTimeout(type, nextDelay(ch));
+        } else {
+          // short natural pause before cursor stops
+          setTimeout(() => el.classList.remove("typing"), rand(600, 1100));
+        }
+      }
+
+      setTimeout(type, startDelay);
+
+    });
 </script>
-
-</body>
-</html>
+  
+  </body>
+  
+  </html>
