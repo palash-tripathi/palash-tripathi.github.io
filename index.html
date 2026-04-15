@@ -690,10 +690,193 @@
       0%,50%,100%{opacity:1;}
       25%,75%{opacity:0;}
     }
+
+    /* ══════════════════════════════════════
+       ENHANCED STYLES
+       ══════════════════════════════════════ */
+
+    /* Grain texture overlay */
+    .grain{
+      position:fixed;inset:0;z-index:-2;pointer-events:none;
+      opacity:.032;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat:repeat;background-size:256px 256px;
+    }
+
+    /* Particle canvas */
+    #particles{
+      position:fixed;inset:0;z-index:-6;
+      pointer-events:none;opacity:.5;
+    }
+
+    /* Gradient animated heading */
+    .gradient-text{
+      background:linear-gradient(135deg, #a78bfa, #7c3aed, #3b82f6, #06b6d4, #7c3aed, #a78bfa);
+      background-size:300% 300%;
+      -webkit-background-clip:text;background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:gradient-shift 8s ease infinite;
+    }
+    @keyframes gradient-shift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* Status dot (available) */
+    .status-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:#22c55e;
+      box-shadow:0 0 0 3px rgba(34,197,94,.15);
+      display:inline-block;
+      animation:pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot{
+      0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.15)}
+      50%{box-shadow:0 0 0 8px rgba(34,197,94,.05)}
+    }
+
+    /* CSS @property for animated border angle */
+    @property --angle{
+      syntax:"<angle>";initial-value:0deg;inherits:false;
+    }
+
+    /* Card glow border on hover */
+    .card::before{
+      content:"";position:absolute;inset:-1px;
+      border-radius:inherit;z-index:-1;
+      background:conic-gradient(from var(--angle,0deg), transparent 40%, rgba(124,58,237,.45) 50%, transparent 60%);
+      opacity:0;transition:opacity .4s ease;
+    }
+    .card{position:relative;overflow:hidden;}
+    .card:hover::before{
+      opacity:1;animation:rotate-border 4s linear infinite;
+    }
+    @keyframes rotate-border{to{--angle:360deg}}
+
+    /* 3D tilt preserve */
+    .card,.vibe-card{transform-style:preserve-3d;will-change:transform;}
+
+    /* Vibe Coding section */
+    .vibe-grid{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+    }
+    @media(max-width:980px){.vibe-grid{grid-template-columns:1fr}}
+
+    .vibe-card{
+      border-radius:var(--radius2);
+      background:rgba(18,18,26,.62);
+      border:1px solid rgba(255,255,255,.10);
+      padding:22px;backdrop-filter:blur(14px);
+      position:relative;overflow:hidden;transition:.2s ease;
+    }
+    .vibe-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(6,182,212,.36);
+      box-shadow:0 22px 80px rgba(0,0,0,.42);
+    }
+    .vibe-card::after{
+      content:"";position:absolute;top:-50%;right:-50%;
+      width:100%;height:100%;
+      background:radial-gradient(circle,rgba(6,182,212,.07),transparent 60%);
+      pointer-events:none;
+    }
+    .vibe-icon{
+      width:42px;height:42px;border-radius:12px;
+      background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(124,58,237,.15));
+      border:1px solid rgba(6,182,212,.2);
+      display:grid;place-items:center;margin-bottom:14px;font-size:20px;
+    }
+    .vibe-card h3{margin:0 0 8px;font-size:16px;letter-spacing:-.15px;}
+    .vibe-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.65;}
+    .vibe-tag{
+      display:inline-flex;align-items:center;gap:6px;margin-top:12px;
+      font-size:12px;color:rgba(6,182,212,.8);
+      padding:5px 10px;border-radius:999px;
+      border:1px solid rgba(6,182,212,.2);background:rgba(6,182,212,.06);
+    }
+
+    /* Education cards */
+    .edu-card{
+      display:flex;gap:16px;align-items:flex-start;
+      padding:16px;border-radius:16px;
+      background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);
+    }
+    .edu-card+.edu-card{margin-top:12px}
+    .edu-icon{
+      width:44px;height:44px;min-width:44px;border-radius:12px;
+      background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(59,130,246,.15));
+      border:1px solid rgba(124,58,237,.2);display:grid;place-items:center;font-size:20px;
+    }
+    .edu-card h3{margin:0 0 4px;font-size:15px;}
+    .edu-card .where{margin-bottom:4px}
+    .edu-card .edu-detail{color:var(--muted2);font-size:13px;line-height:1.5}
+
+    /* Animated stat counters */
+    .stat-value{
+      font-variant-numeric:tabular-nums;
+      font-feature-settings:"tnum" 1;
+    }
+
+    /* Enhanced chip hover */
+    .chip{transition:.16s ease;cursor:default;}
+    .chip:hover{
+      border-color:rgba(124,58,237,.32);
+      background:rgba(124,58,237,.08);
+      color:var(--text);
+      transform:translateY(-1px);
+    }
+
+    /* Floating animation */
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .float{animation:float 6s ease-in-out infinite;}
+
+    /* Better pill hover */
+    .pill{transition:.16s ease;}
+    .pill:hover{border-color:rgba(124,58,237,.26);background:rgba(124,58,237,.06);}
+
+    /* Stats hover */
+    .stat{transition:.16s ease;}
+    .stat:hover{
+      border-color:rgba(124,58,237,.26);
+      background:rgba(124,58,237,.05);
+      transform:translateX(4px);
+    }
+
+    /* Section head accent line */
+    .section h2::after{
+      content:"";display:inline-block;
+      width:24px;height:2px;border-radius:2px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      margin-left:10px;vertical-align:middle;
+    }
+
+    /* Enhanced footer */
+    footer{
+      border-top:1px solid rgba(255,255,255,.06);
+      padding-top:20px;
+    }
+    .footer-links{
+      display:flex;gap:16px;flex-wrap:wrap;align-items:center;
+    }
+
+    /* Mini card hover */
+    .mini{transition:.16s ease;}
+    .mini:hover{
+      border-color:rgba(124,58,237,.22);
+      background:rgba(124,58,237,.04);
+      transform:translateY(-2px);
+    }
+
+    /* Panel entrance on hover */
+    .panel{transition:border-color .2s ease;}
+    .panel:hover{border-color:rgba(255,255,255,.15);}
   </style>
 </head>
 
 <body>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
   <div class="spotlight" aria-hidden="true"></div>
 
   <nav class="nav">
@@ -707,8 +890,10 @@
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
         <a href="#certifications">Certifications</a>
+        <a href="#education">Education</a>
         <a href="#research">Research</a>
         <a href="#projects">Projects</a>
+        <a href="#vibe-coding">Vibe Coding</a>
         <a href="#hobbies">Hobbies</a>
         <a href="#contact">Contact</a>
       </div>
@@ -719,10 +904,10 @@
     <!-- HOME / HERO -->
     <section class="hero reveal">
       <div class="hero-left">
-        <div class="kicker"><span class="dot" aria-hidden="true"></span> Data Engineer • AWS • Analytics Platforms</div>
+        <div class="kicker"><span class="status-dot" aria-hidden="true"></span> Available for opportunities</div>
 
         <!-- ✅ TYPING TARGET: must be empty initially -->
-        <h1 id="typing-text" data-text="Build data systems that ship."></h1>
+        <h1 class="gradient-text" id="typing-text" data-text="Build data systems that ship."></h1>
 
         <div class="subtitle">
           I design cloud ETL pipelines, multi-tenant data platforms, and BI experiences that convert operational data into
@@ -797,9 +982,9 @@
         </div>
 
         <div class="stats reveal">
-          <div class="stat"><b>Client onboarding</b><span>60–70% faster</span></div>
-          <div class="stat"><b>Manual reporting</b><span>~40% reduced</span></div>
-          <div class="stat"><b>Model impact</b><span>+33% CTR uplift</span></div>
+          <div class="stat"><b>Client onboarding</b><span class="stat-value" data-value="65" data-suffix="% faster">0% faster</span></div>
+          <div class="stat"><b>Manual reporting</b><span class="stat-value" data-value="40" data-prefix="~" data-suffix="% reduced">0% reduced</span></div>
+          <div class="stat"><b>Model impact</b><span class="stat-value" data-value="33" data-prefix="+" data-suffix="% CTR uplift">0% CTR uplift</span></div>
         </div>
       </div>
     </section>
@@ -957,6 +1142,33 @@
       </div>
     </section>
 
+    <!-- EDUCATION -->
+    <section class="section reveal" id="education">
+      <div class="section-head">
+        <h2>Education</h2>
+        <div class="hint"></div>
+      </div>
+
+      <div class="panel reveal">
+        <div class="edu-card">
+          <div class="edu-icon">🎓</div>
+          <div>
+            <h3>M.S. in Computer Science</h3>
+            <div class="where">University of California, Riverside</div>
+            <div class="edu-detail">Focus on data systems, machine learning, and distributed computing. Published research during program.</div>
+          </div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">🎓</div>
+          <div>
+            <h3>B.Tech in Computer Science & Engineering</h3>
+            <div class="where">SRM Institute of Science and Technology, India</div>
+            <div class="edu-detail">Strong foundations in algorithms, databases, software engineering, and system design.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- RESEARCH -->
     <section class="section reveal" id="research">
       <div class="section-head">
@@ -1032,6 +1244,44 @@
     </section>
 
     <!-- HOBBIES -->
+    <section class="section reveal" id="vibe-coding">
+      <div class="section-head">
+        <h2>Vibe Coding</h2>
+        <div class="hint">AI-assisted experiments & builds.</div>
+      </div>
+
+      <div class="vibe-grid">
+        <div class="vibe-card reveal">
+          <div class="vibe-icon">🌐</div>
+          <h3>This Portfolio</h3>
+          <p>Designed and shipped this entire portfolio using AI pair programming — layout, interactions, animations, and deployment, all through natural language prompts and iterative refinement.</p>
+          <span class="vibe-tag">✦ Copilot + Claude</span>
+        </div>
+
+        <div class="vibe-card reveal">
+          <div class="vibe-icon">🔄</div>
+          <h3>Natural Language → SQL</h3>
+          <p>Built a conversational interface that translates plain English questions into optimized SQL queries against live databases — schema-aware, with query validation and explain plans.</p>
+          <span class="vibe-tag">✦ LLM + PostgreSQL</span>
+        </div>
+
+        <div class="vibe-card reveal">
+          <div class="vibe-icon">⚡</div>
+          <h3>AI ETL Pipeline Scaffolder</h3>
+          <p>Prompt-driven tool that generates AWS Glue job boilerplate, schema mappings, and data validation rules from a plain-text description of source and target systems.</p>
+          <span class="vibe-tag">✦ GPT-4 + AWS Glue</span>
+        </div>
+
+        <div class="vibe-card reveal">
+          <div class="vibe-icon">📊</div>
+          <h3>Auto Data Documentation</h3>
+          <p>AI agent that crawls database schemas, infers column semantics, and auto-generates a living data dictionary with lineage graphs — updated on every deploy.</p>
+          <span class="vibe-tag">✦ LangChain + dbt</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOBBIES -->
     <section class="section reveal" id="hobbies">
       <div class="section-head">
         <h2>Hobbies</h2>
@@ -1078,8 +1328,12 @@
     </section>
 
     <footer class="reveal">
-      <div>© <span id="year"></span> Palash Tripathi</div>
-      <div><a class="quiet-link" href="#home">Back to top</a></div>
+      <div>© <span id="year"></span> Palash Tripathi — Built with ✦ vibe coding</div>
+      <div class="footer-links">
+        <a class="quiet-link" href="https://www.linkedin.com/in/palash-t-a87679137/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="quiet-link" href="https://github.com/palash-tripathi" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="quiet-link" href="#home">Back to top</a>
+      </div>
     </footer>
   </main>
 
@@ -1131,8 +1385,8 @@
 
     revealEls.forEach(el => io.observe(el));
 
-    // Active nav highlighting (✅ include research)
-    const sectionIds = ["about","experience","skills","certifications","research","projects","hobbies","contact"];
+    // Active nav highlighting (✅ include all sections)
+    const sectionIds = ["about","experience","skills","certifications","education","research","projects","vibe-coding","hobbies","contact"];
     const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
     const navLinks = Array.from(document.querySelectorAll(".nav-links a"))
       .filter(a => (a.getAttribute("href") || "").startsWith("#"));
@@ -1380,6 +1634,114 @@ function rand(min, max) {
       setTimeout(type, startDelay);
 
     });
+
+    /* ==========================
+       ✅ Particle system (lightweight)
+       ========================== */
+    (function(){
+      const c = document.getElementById("particles");
+      if (!c || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const ctx = c.getContext("2d");
+      let w, h, particles = [];
+      const COUNT = 45;
+
+      function resize(){
+        w = c.width = window.innerWidth;
+        h = c.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      for(let i=0; i<COUNT; i++){
+        particles.push({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          r: Math.random()*1.4 + 0.4,
+          dx: (Math.random()-0.5)*0.25,
+          dy: (Math.random()-0.5)*0.25,
+          o: Math.random()*0.35 + 0.08
+        });
+      }
+
+      function draw(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of particles){
+          p.x += p.dx; p.y += p.dy;
+          if(p.x<0) p.x=w; if(p.x>w) p.x=0;
+          if(p.y<0) p.y=h; if(p.y>h) p.y=0;
+          ctx.beginPath();
+          ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle=`rgba(167,139,250,${p.o})`;
+          ctx.fill();
+        }
+        // Draw connections
+        for(let i=0;i<particles.length;i++){
+          for(let j=i+1;j<particles.length;j++){
+            const dx=particles[i].x-particles[j].x;
+            const dy=particles[i].y-particles[j].y;
+            const dist=Math.sqrt(dx*dx+dy*dy);
+            if(dist<140){
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x,particles[i].y);
+              ctx.lineTo(particles[j].x,particles[j].y);
+              ctx.strokeStyle=`rgba(124,58,237,${0.06*(1-dist/140)})`;
+              ctx.lineWidth=0.5;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    /* ==========================
+       ✅ 3D Tilt on cards
+       ========================== */
+    (function(){
+      if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const tiltEls = document.querySelectorAll(".card, .vibe-card");
+      tiltEls.forEach(el => {
+        el.addEventListener("mousemove", e => {
+          const rect = el.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          el.style.transform = `perspective(600px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateY(-2px)`;
+        });
+        el.addEventListener("mouseleave", () => {
+          el.style.transform = "";
+        });
+      });
+    })();
+
+    /* ==========================
+       ✅ Animated counters for stats
+       ========================== */
+    (function(){
+      const statSpans = document.querySelectorAll(".stat-value[data-value]");
+      if(!statSpans.length) return;
+
+      const counterIO = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            const el = e.target;
+            const end = parseInt(el.dataset.value, 10);
+            const prefix = el.dataset.prefix || "";
+            const suffix = el.dataset.suffix || "";
+            let current = 0;
+            const step = Math.max(1, Math.floor(end / 40));
+            const interval = setInterval(() => {
+              current += step;
+              if(current >= end){ current = end; clearInterval(interval); }
+              el.textContent = prefix + current + suffix;
+            }, 30);
+            counterIO.unobserve(el);
+          }
+        });
+      }, {threshold: 0.5});
+
+      statSpans.forEach(el => counterIO.observe(el));
+    })();
 </script>
   
   </body>
